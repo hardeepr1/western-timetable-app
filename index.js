@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+const courseRouter = require('./routers/courseRouter')();
+
 const User = require('./models/User');
 const Course = require('./models/Course');
-
 const dbUrl = 'mongodb://localhost:27017/timeTableApp';
 mongoose.connect(dbUrl);
 
@@ -16,14 +17,10 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  Course.find({}, (err, courses) => {
-    const returnedCourses = [];
-    courses.forEach((course) => {
-      returnedCourses.push(course);
-    });
-    return res.json(returnedCourses);
-  });
+  res.send('Hello world');
 });
+
+app.use('/api', [courseRouter]);
 
 app.post('/signUp', (req, res) => {
   let user = new User(req.body);
