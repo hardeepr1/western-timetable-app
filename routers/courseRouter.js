@@ -4,7 +4,7 @@ const Course = require('../models/Course');
 function routes() {
   const courseRouter = express.Router();
 
-  //this was just for testing if all courses are loaded into database
+  //this code was written testing if all courses are loaded into database
   //method to return all the courses
   //   courseRouter.route('open/courses').get((req, res) => {
   //     Course.find({}, (err, courses) => {
