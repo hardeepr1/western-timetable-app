@@ -15,20 +15,6 @@ function routes() {
     });
   });
 
-  //MARK A REVIEW HIDDEN
-  reviewRouter.route('/admin/review/:id').put(async (req, res) => {
-    try {
-      let id = req.params.id;
-      let review = await Review.findById(id);
-
-      review.hidden = req.body.hidden;
-
-      let updatedReview = await review.save();
-      res.send(updatedReview);
-    } catch (error) {
-      res.send(error);
-    }
-  });
   return reviewRouter;
 }
 

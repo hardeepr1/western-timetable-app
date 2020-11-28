@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const model = new Schema({
   email: String,
-  name: String,
+  username: String,
   password: String,
   deactivated: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
