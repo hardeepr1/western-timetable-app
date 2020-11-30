@@ -1,0 +1,28 @@
+{
+  "name": "ece9065-hraike-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hardeepr1/ece9065-hraike-project.git"
+  },
+  "author": "Hardeep Singh Raike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hardeepr1/ece9065-hraike-project/issues"
+  },
+  "homepage": "https://github.com/hardeepr1/ece9065-hraike-project#readme",
+  "dependencies": {
+    "argon2": "^0.27.0",
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.16"
+  }
+}
