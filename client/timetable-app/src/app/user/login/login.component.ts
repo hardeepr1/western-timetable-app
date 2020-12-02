@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: ) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -31,13 +32,12 @@ export class LoginComponent implements OnInit {
         next: (response) => this.onLogin(response),
       }); 
     }
-
   }
 
   onLogin(response): void{
     this.authService.setUserSession(response);
 
-    this.router.navigate(['/courselist']);
+    this.router.navigate(['/courselists']);
     console.log(response);
   }
 

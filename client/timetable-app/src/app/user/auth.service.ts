@@ -39,4 +39,9 @@ export class AuthService{
         let loggedIn = localStorage.getItem('id_token') !== null;
         return loggedIn;
     }
+
+    logOut(): void {
+        this.username = '';
+        localStorage.removeItem("id_token");
+    }
 }

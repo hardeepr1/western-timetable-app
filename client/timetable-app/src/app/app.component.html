@@ -5,7 +5,8 @@
     <a mat-button routerLink="/createcourselist">Create Course List</a>
     <span class="menu-spacer"></span>
     <a mat-button routerLink="/register">Register</a>
-    <a mat-button routerLink="/login">Login</a>
+    <a mat-button *ngIf="isLoggedIn" (click)="logOut()">Log Out</a>
+    <a mat-button *ngIf="!isLoggedIn" routerLink="/login">Login</a>
   </mat-toolbar-row>
 </mat-toolbar>
 
