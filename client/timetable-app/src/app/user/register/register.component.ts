@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,11 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
-  public userName: String;
-  public email: String;
-  public password: String;
-
-  constructor(private formBuilder :FormBuilder) { }
+  constructor(private formBuilder :FormBuilder,private authService: AuthService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -24,9 +21,18 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(): void{
-    console.log("Form Submit called");
     if(this.registerForm.dirty){
-      console.log(this.registerForm.value.userName);
+      const user = {
+        userName: this.registerForm.value.userName,
+        password: this.registerForm.value.password,
+        email: this.registerForm.value.email
+      }
+
+      //to do error handling
+      this.authService.register(user).subscribe({
+        next:(res) => console.log(res)
+      });
+      
     }
     
   }

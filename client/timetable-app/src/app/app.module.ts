@@ -10,11 +10,15 @@ import {MaterialModule} from './material/material.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './user/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateCourselistComponent } from './courselist/create-courselist/create-courselist.component';
+import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreateCourselistComponent,
+    SearchCoursesComponent
   ],
   imports: [
     BrowserModule,
