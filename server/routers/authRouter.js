@@ -8,7 +8,7 @@ function routes() {
   const authRouter = express.Router();
 
   //CREATE A NEW USER ACCOUNT
-  authRouter.route('/signup').post(async (req, res) => {
+  authRouter.route('/open/signup').post(async (req, res) => {
     let existingUser = await User.findOne({ username: req.body.username });
     if (existingUser === null) {
       let user = new User(req.body);
@@ -16,6 +16,9 @@ function routes() {
 
       let passwordHash = await argon2.hash(user.password, salt);
       user.password = passwordHash;
+
+      console.log('Here in signup');
+      console.log(passwordHash);
 
       let saveUser = await user.save();
       return res.send(saveUser);
@@ -25,16 +28,18 @@ function routes() {
   });
 
   //SIGN IN WITH LOCALLY CREATED USER
-  authRouter.route('/signin').post(async (req, res) => {
-    let username = req.body.username;
+  authRouter.route('/open/signin').post(async (req, res) => {
+    let email = req.body.email;
     let password = req.body.password;
 
-    let user = await User.findOne({ username: username });
+    let user = await User.findOne({ email: email });
 
-    if (user === null) {
+    if (user !== null) {
       let passwordMatches = await argon2.verify(user.password, password);
+      console.log(passwordMatches);
       if (passwordMatches) {
         const jwtToken = user.generateJWTToken();
+
         const responseObject = {
           token: jwtToken,
           username: user.username,

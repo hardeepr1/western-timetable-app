@@ -15,4 +15,15 @@ export class CourseListService {
     const url = `${this.baseUrl}/secure/courselist`;
     return this.http.get<any>(url);
   }
+
+  createCourseList(courseList: any): Observable<any>{
+    const url = `${this.baseUrl}/secure/courselist`;
+    return this.http.post<any>(url, courseList, {headers : {'Content-Type' : 'application/json'}});
+  }
+
+  getAllCourses(): Observable<any>{
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const url = `${this.baseUrl}/secure/courses`;
+    return this.http.get<any>(url);
+  }
 }

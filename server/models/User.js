@@ -11,8 +11,13 @@ const model = new Schema({
   isAdmin: { type: Boolean, default: false },
 });
 
-model.method.generateJWTToken = () => {
-  //we can later add expires in other option as need
-  const token = jwt.sign({ username: this.username, isAdmin: this.isAdmin });
+model.methods.generateJWTToken = () => {
+  //we can later add expires in other option as need and other things like secret string
+  const token = jwt.sign(
+    { username: this.username, isAdmin: this.isAdmin },
+    'secret'
+  );
+  return token;
 };
+
 module.exports = mongoose.model('User', model);

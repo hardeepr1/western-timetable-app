@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateCourselistComponent } from './courselist/create-courselist/create-courselist.component';
 import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
 import { CourselistComponent } from './courselist/courselist/courselist.component';
+import { LoginComponent } from './user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CourselistComponent } from './courselist/courselist/courselist.componen
     RegisterComponent,
     CreateCourselistComponent,
     SearchCoursesComponent,
-    CourselistComponent
+    CourselistComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

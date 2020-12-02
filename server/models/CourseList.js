@@ -8,6 +8,7 @@ const model = new Schema({
   coursesList: { type: Array, required: true },
   public: { type: Boolean, default: false },
   lastEditedTime: { type: Date },
+  userName: { type: String },
 });
 
 module.exports = mongoose.model('CourseList', model);

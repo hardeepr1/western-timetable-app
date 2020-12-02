@@ -16,6 +16,12 @@ function routes() {
     });
   });
 
+  //COURSE LIST CREATE DATA
+  courseRouter.route('/secure/courses').get(async (req, res) => {
+    const courses = await Course.find({}).select('catalog_nbr subject');
+    return res.json(courses);
+  });
+
   courseRouter.route('/open/course').get((req, res) => {
     let result = [];
     //subject, catalog_nbr, className , class_section, ssr_component

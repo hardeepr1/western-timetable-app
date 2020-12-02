@@ -1,1 +1,47 @@
-<p>create-courselist works!</p>
+<mat-toolbar>
+  <span>Create a course List</span>
+</mat-toolbar>
+<mat-card class="my-card">
+  <mat-card-content>
+    <form [formGroup]="courseListForm" class="course-list-form">
+      <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" type="text" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Description</mat-label>
+        <input
+          matInput
+          id="Description"
+          type="text"
+          formControlName="description"
+        />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="createCourseList()" color="primary">
+      CREATE COURSELIST
+    </button>
+  </mat-card-actions>
+
+  <table mat-table [dataSource]="coursesList" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Catalog Number Column -->
+    <ng-container matColumnDef="catalog_nbr">
+      <th mat-header-cell *matHeaderCellDef>Catalog Number</th>
+      <td mat-cell *matCellDef="let element">{{ element.catalog_nbr }}</td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="subject">
+      <th mat-header-cell *matHeaderCellDef>Subject</th>
+      <td mat-cell *matCellDef="let element">{{ element.subject }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</mat-card>
