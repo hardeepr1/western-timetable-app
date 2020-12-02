@@ -6,15 +6,15 @@ function routes() {
 
   //this code was written testing if all courses are loaded into database
   //method to return all the courses
-  //   courseRouter.route('open/courses').get((req, res) => {
-  //     Course.find({}, (err, courses) => {
-  //       const returnedCourses = [];
-  //       courses.forEach((course) => {
-  //         returnedCourses.push(course);
-  //       });
-  //       return res.json(returnedCourses);
-  //     });
-  //   });
+  courseRouter.route('open/courses').get((req, res) => {
+    Course.find({}, (err, courses) => {
+      const returnedCourses = [];
+      courses.forEach((course) => {
+        returnedCourses.push(course);
+      });
+      return res.json(returnedCourses);
+    });
+  });
 
   courseRouter.route('/open/course').get((req, res) => {
     let result = [];
@@ -42,8 +42,17 @@ function routes() {
     );
   });
 
-  //search course by
-  courseRouter.route('/open/searchcourse').get((req, res) => {});
+  //search course by key
+  courseRouter.route('/open/searchcourse').get(async (req, res) => {
+    let result = [];
+    //to do need to update logic for soft matching
+    let search_keyword = req.query.search_keyword;
+
+    const courses = await Course.find({
+      catalog_nbr: search_keyword,
+    });
+    res.send(courses);
+  });
   return courseRouter;
 }
 

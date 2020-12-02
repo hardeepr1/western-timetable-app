@@ -12,13 +12,15 @@ import { RegisterComponent } from './user/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateCourselistComponent } from './courselist/create-courselist/create-courselist.component';
 import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
+import { CourselistComponent } from './courselist/courselist/courselist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     CreateCourselistComponent,
-    SearchCoursesComponent
+    SearchCoursesComponent,
+    CourselistComponent
   ],
   imports: [
     BrowserModule,

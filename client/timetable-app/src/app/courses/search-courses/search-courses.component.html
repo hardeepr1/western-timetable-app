@@ -1,4 +1,40 @@
 <mat-tab-group>
-  <mat-tab label="Search By Course ID"> Content 1 </mat-tab>
-  <mat-tab label="Search By Keyword"> Content 2 </mat-tab>
+  <mat-tab label="Search By Course ID">
+    <div class="search-course-id-content">
+      <form class="form">
+        <mat-form-field class="full-width">
+          <mat-label>Subject</mat-label>
+          <input matInput placeholder="SE or ECE" />
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Course Number</mat-label>
+          <textarea matInput placeholder="like 3316a"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="searchByCourseId()">
+          SEARCH
+        </button>
+      </form>
+    </div>
+  </mat-tab>
+  <mat-tab label="Search By Keyword">
+    <div class="search-by-keyword">
+      <form class="form">
+        <mat-form-field class="full-width">
+          <mat-label>Search Keyword</mat-label>
+          <input
+            matInput
+            placeholder="keyword"
+            [(ngModel)]="keyword"
+            name="keyword"
+          />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="searchByKeyWord()">
+          SEARCH
+        </button>
+      </form>
+    </div>
+  </mat-tab>
 </mat-tab-group>
