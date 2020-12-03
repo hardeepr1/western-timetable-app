@@ -35,10 +35,23 @@
       <td mat-cell *matCellDef="let element">{{ element.catalog_nbr }}</td>
     </ng-container>
 
-    <!-- Position Column -->
+    <!-- Subject Column -->
     <ng-container matColumnDef="subject">
       <th mat-header-cell *matHeaderCellDef>Subject</th>
       <td mat-cell *matCellDef="let element">{{ element.subject }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="selectedcheckbox">
+      <th mat-header-cell *matHeaderCellDef>Selected</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox #courseselect
+          [attr.subject]="element.subject"
+          [attr.catalog_nbr]="element.catalog_nbr"
+          class="example-margin"
+          (click)="checkBoxClickHandler($event)"
+          >Select</mat-checkbox
+        >
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

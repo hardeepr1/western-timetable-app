@@ -22,13 +22,14 @@ function routes() {
     //just really simple thing is done so far
     const courseList = new CourseList(req.body);
     courseList.set({ lastEditedTime: Date.now() });
+    console.log(courseList);
     //for time being it is hard coded
     courseList.set({ userName: 'hardeepr1' });
     courseList.save((err) => {
       if (err) {
-        res.send(err);
+        return res.send(err);
       }
-      res.send(courseList);
+      return res.send(courseList);
     });
   });
 

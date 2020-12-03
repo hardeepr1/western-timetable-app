@@ -36,12 +36,19 @@ export class AuthService{
     }
 
     userLoggedIn(): boolean{
-        let loggedIn = localStorage.getItem('id_token') !== null;
-        return loggedIn;
+        return true;
+        // let loggedIn = localStorage.getItem('id_token') !== null;
+        // return loggedIn;
     }
 
     logOut(): void {
         this.username = '';
         localStorage.removeItem("id_token");
     }
+
+    getToken():String {
+        let token = localStorage.getItem('id_token');
+        return token;
+    }
+    
 }

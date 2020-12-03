@@ -11,11 +11,14 @@ const model = new Schema({
   isAdmin: { type: Boolean, default: false },
 });
 
-model.methods.generateJWTToken = () => {
-  //we can later add expires in other option as need and other things like secret string
+model.methods.generateJWTToken = function () {
   const token = jwt.sign(
     { username: this.username, isAdmin: this.isAdmin },
-    'secret'
+    'secret',
+    {
+      algorithm: 'HS256',
+      expiresIn: 86400,
+    }
   );
   return token;
 };

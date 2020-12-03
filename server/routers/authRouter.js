@@ -36,7 +36,6 @@ function routes() {
 
     if (user !== null) {
       let passwordMatches = await argon2.verify(user.password, password);
-      console.log(passwordMatches);
       if (passwordMatches) {
         const jwtToken = user.generateJWTToken();
 

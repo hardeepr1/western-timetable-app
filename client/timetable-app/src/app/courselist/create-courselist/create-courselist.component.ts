@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseListService } from '../courselist.service';
 
@@ -10,7 +10,9 @@ import { CourseListService } from '../courselist.service';
 export class CreateCourselistComponent implements OnInit {
   courseListForm: FormGroup;
   coursesList: any[];
-  displayedColumns = ['catalog_nbr','subject'];
+  displayedColumns = ['catalog_nbr','subject', 'selectedcheckbox'];
+  selectedCourses: any[] = [];
+  @ViewChild('courseselect') courseselect;
 
   constructor(private formBuilder: FormBuilder, private courseListService: CourseListService) {     
     this.courseListForm = this.formBuilder.group({
@@ -29,8 +31,19 @@ export class CreateCourselistComponent implements OnInit {
   createCourseList(): void{
     const courseList = {
       name: this.courseListForm.value.name,
-      description: this.courseListForm.value.description
+      description: this.courseListForm.value.description,
+      coursesList: this.selectedCourses
     }
     this.courseListService.createCourseList(courseList).subscribe(res => alert("Course List Creation success"));
   }
+
+  checkBoxClickHandler(event: any): void{
+    const subject = event.currentTarget.getAttribute('subject');
+    const catalog_nbr = event.currentTarget.getAttribute('catalog_nbr');
+    this.selectedCourses.push({
+      subject: subject,
+      catalog_nbr: catalog_nbr,
+    });
+  }
+
 }

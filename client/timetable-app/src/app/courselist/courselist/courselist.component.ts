@@ -17,7 +17,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class CourselistComponent implements OnInit {
 
   courseLists:any[];
-  columnsToDisplay = ['name', 'description'];
+  columnsToDisplay = ['name', 'description']
+  allColumnsToDisplay = ['name', 'description', 'delete']
 
   constructor(private courseListService: CourseListService) { }
 
@@ -26,6 +27,11 @@ export class CourselistComponent implements OnInit {
       this.courseLists = courseLists;
       console.log(courseLists);
     });
+  }
+
+  deleteCourseList(event, item): void{
+    event.stopPropagation()
+    console.log(item);
   }
 
 }

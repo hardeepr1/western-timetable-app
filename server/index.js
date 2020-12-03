@@ -3,11 +3,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+const jwt = require('jsonwebtoken');
+
 const courseRouter = require('./routers/courseRouter')();
 const courseListRouter = require('./routers/courseListRouter')();
 const reviewRouter = require('./routers/reviewRouter')();
 const adminRouter = require('./routers/adminRouter')();
 const authRouter = require('./routers/authRouter')();
+const authMiddleWare = require('./authmiddleware');
 
 const Course = require('./models/Course');
 
@@ -20,6 +23,8 @@ const app = express();
 
 //setup middleware for body parser
 app.use(bodyParser.json());
+
+//app.use('/api/secure', authMiddleWare.checkAuthentication);
 
 app.use('/api', [
   courseRouter,
