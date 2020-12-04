@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CourseListService} from '../courselist.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courselist',
@@ -17,10 +18,10 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class CourselistComponent implements OnInit {
 
   courseLists:any[];
-  columnsToDisplay = ['name', 'description']
-  allColumnsToDisplay = ['name', 'description', 'delete']
+  columnsToDisplay = ['name', 'userName', 'lastEditedTime']
+  allColumnsToDisplay = ['name', 'userName','lastEditedTime' ,'coursescount','delete', 'timetable']
 
-  constructor(private courseListService: CourseListService) { }
+  constructor(private courseListService: CourseListService, private router:Router ) { }
 
   ngOnInit(): void {
     this.courseListService.getCourseLists().subscribe(courseLists => {
@@ -32,6 +33,14 @@ export class CourselistComponent implements OnInit {
   deleteCourseList(event, item): void{
     event.stopPropagation()
     console.log(item);
+  }
+
+  //here we will write code to move to next view
+  showTimeTable(coursesList): void{
+    const route = '/timetable/' + coursesList;
+    console.log(route);
+    this.router.navigate([route]);
+    
   }
 
 }
