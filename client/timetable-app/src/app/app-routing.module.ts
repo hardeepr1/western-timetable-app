@@ -10,6 +10,7 @@ import { RegisterComponent } from './user/register/register.component';
 const routes: Routes = [
   {path:'register',component: RegisterComponent},
   {path:'courselists', component: CourselistComponent},
+  {path:'createcourselist/:courseListId', component: CreateCourselistComponent, canActivate: [AuthGuard]},
   {path:'createcourselist', component: CreateCourselistComponent, canActivate: [AuthGuard]},
   {path:'timetable/:courseListId', component: TimetableComponent},
   {path:'login', component: LoginComponent}

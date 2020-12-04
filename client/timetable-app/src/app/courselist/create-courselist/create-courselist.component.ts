@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { CourseListService } from '../courselist.service';
 
 @Component({
@@ -12,9 +13,10 @@ export class CreateCourselistComponent implements OnInit {
   coursesList: any[];
   displayedColumns = ['catalog_nbr','subject', 'selectedcheckbox'];
   selectedCourses: any[] = [];
+  editCourseList: boolean = false;
   @ViewChild('courseselect') courseselect;
 
-  constructor(private formBuilder: FormBuilder, private courseListService: CourseListService) {     
+  constructor(private formBuilder: FormBuilder, private courseListService: CourseListService, private route: ActivatedRoute) {     
     this.courseListForm = this.formBuilder.group({
     name: ['',[Validators.required]],
     description:['']})
@@ -22,12 +24,21 @@ export class CreateCourselistComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseListService.getAllCourses().subscribe(coursesList =>{ 
-      console.log(coursesList);
       this.coursesList = coursesList;
     });
+
+    const courseListId = this.route.snapshot.paramMap.get('courseListId');
+    if(courseListId){
+      this.editCourseList = true;
+      this.courseListService.getCourseList(courseListId).subscribe(courseList =>{
+        this.courseListForm.controls['name'].setValue(courseList.name);
+        this.courseListForm.controls['description'].setValue(courseList.description);
+      })
+    }
+    
   }
 
-  //for time being we are just creating an empty course list with name 
+  //METHOD TO CREATE A COURSELIST
   createCourseList(): void{
     const courseList = {
       name: this.courseListForm.value.name,
@@ -35,6 +46,17 @@ export class CreateCourselistComponent implements OnInit {
       coursesList: this.selectedCourses
     }
     this.courseListService.createCourseList(courseList).subscribe(res => alert("Course List Creation success"));
+  }
+
+  //METHOD TO UPDATE COURSELIST
+  updateCourseList(): void{
+    const updatedCourseList = {
+      name: this.courseListForm.value.name,
+      description: this.courseListForm.value.description,
+      coursesList: this.selectedCourses
+    }
+    const courseListId = this.route.snapshot.paramMap.get('courseListId');
+    this.courseListService.updateCourseList(courseListId, updatedCourseList).subscribe(res => alert("Update course list is successfull"));
   }
 
   checkBoxClickHandler(event: any): void{

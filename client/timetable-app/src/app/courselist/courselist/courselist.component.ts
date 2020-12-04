@@ -19,7 +19,7 @@ export class CourselistComponent implements OnInit {
 
   courseLists:any[];
   columnsToDisplay = ['name', 'userName', 'lastEditedTime']
-  allColumnsToDisplay = ['name', 'userName','lastEditedTime' ,'coursescount','delete', 'timetable']
+  allColumnsToDisplay = ['name', 'userName','lastEditedTime' ,'coursescount','delete', 'timetable', 'edit']
 
   constructor(private courseListService: CourseListService, private router:Router ) { }
 
@@ -31,16 +31,21 @@ export class CourselistComponent implements OnInit {
   }
 
   deleteCourseList(event, item): void{
-    event.stopPropagation()
+    event.stopPropagation();
     console.log(item);
   }
 
   //here we will write code to move to next view
-  showTimeTable(coursesList): void{
-    const route = '/timetable/' + coursesList;
+  showTimeTable(coursesListID): void{
+    const route = '/timetable/' + coursesListID;
     console.log(route);
     this.router.navigate([route]);
-    
+  }
+
+  editCourseList(event, coursesListID): void{
+    event.stopPropagation();
+    const route = '/createcourselist/' + coursesListID;
+    this.router.navigate([route]);
   }
 
 }
