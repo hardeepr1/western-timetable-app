@@ -38,4 +38,9 @@ export class CourseListService {
     const url = `${this.baseUrl}/secure/courselist/${courseListID}`;
     return this.http.put<any>(url, updatedCourseList, {headers : {'Content-Type' : 'application/json'}});
   }
+
+  deleteCourseList(courseListID): Observable<any>{
+    const url = `${this.baseUrl}/secure/courselist/${courseListID}`;
+    return this.http.delete<any>(url);
+  }
 }

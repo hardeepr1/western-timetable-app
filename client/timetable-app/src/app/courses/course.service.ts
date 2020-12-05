@@ -16,4 +16,9 @@ export class CourseService {
     const url = `${this.baseUrl}/open/searchcourse`;
     return this.http.get<any[]>(url, {params: params})
   }
+
+  getAllCourses():Observable<any[]>{
+    const url = `${this.baseUrl}/open/courses`;
+    return this.http.get<any[]>(url);
+  }
 }

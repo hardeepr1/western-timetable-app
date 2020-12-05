@@ -16,6 +16,8 @@ import { CourselistComponent } from './courselist/courselist/courselist.componen
 import { LoginComponent } from './user/login/login.component';
 import { AuthInterceptor } from './user/auth.interceptor';
 import { TimetableComponent } from './timetable/timetable.component';
+import { CoursesComponent } from './courses/courses/courses.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { TimetableComponent } from './timetable/timetable.component';
     SearchCoursesComponent,
     CourselistComponent,
     LoginComponent,
-    TimetableComponent
+    TimetableComponent,
+    CoursesComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,

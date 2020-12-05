@@ -32,7 +32,15 @@ export class CourselistComponent implements OnInit {
 
   deleteCourseList(event, item): void{
     event.stopPropagation();
-    console.log(item);
+    if (confirm('Are you sure you want to delete this courselist  database?')) {
+      this.courseListService.deleteCourseList(item).subscribe(res => {
+        this.courseLists = this.courseLists.filter(courselist => courselist._id !== item);
+        alert("Delete Successfull")
+      });
+    } else {
+      console.log('Thing was not saved to the database.');
+    }
+    
   }
 
   //here we will write code to move to next view
