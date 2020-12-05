@@ -18,6 +18,7 @@ import { AuthInterceptor } from './user/auth.interceptor';
 import { TimetableComponent } from './timetable/timetable.component';
 import { CoursesComponent } from './courses/courses/courses.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
     LoginComponent,
     TimetableComponent,
     CoursesComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,

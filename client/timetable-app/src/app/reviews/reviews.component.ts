@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef,ViewChild, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ReviewsService } from './reviews.service';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-reviews',
@@ -11,8 +13,16 @@ export class ReviewsComponent implements OnInit {
   routeState:any;
   subject:string;
   catalog_nbr: string;
+  reviewComment: string ="";
+  reviews: any[] = [];
+  @ViewChild(MatTable) table: MatTable<any>;
 
-  constructor(private route: ActivatedRoute, private router: Router) { 
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private reviewsService: ReviewsService, 
+    private ref: ChangeDetectorRef ) { 
+
     if (this.router.getCurrentNavigation().extras.state) {
     this.routeState = this.router.getCurrentNavigation().extras.state;
     if (this.routeState) {
@@ -23,8 +33,25 @@ export class ReviewsComponent implements OnInit {
 }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    
+    this.reviewsService.getReviews(this.subject, this.catalog_nbr).subscribe(reviews => {
+      this.reviews = reviews;
+      console.log(this.reviews)
+    });
+  }
+
+  addReview(event): void{
+    const review = {
+      subject: this.subject,
+      catalog_nbr: this.catalog_nbr,
+      review: this.reviewComment,
+      hidden: false
+    }
+
+    this.reviewsService.addReview(review).subscribe(reviews =>{ 
+      this.reviews.push(review);
+      this.table.renderRows();
+    });
+
   }
 
 }

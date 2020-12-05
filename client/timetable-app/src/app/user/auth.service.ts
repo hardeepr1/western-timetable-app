@@ -28,6 +28,17 @@ export class AuthService{
         return this.http.post<any>(url, user, {headers:headers});
     }
 
+    getUsers(): Observable<any[]>{
+        const url = `${this.baseUrl}/secure/users`;
+        return this.http.get<any[]>(url);
+    }
+
+
+    updateUsers(users): Observable<any[]>{
+        const url = `${this.baseUrl}/secure/users`;
+        return this.http.put<any[]>(url, users);
+    }
+
     //response will contain username, isAdmin and id_token
     setUserSession(response): void{
         this.username = response.username;

@@ -10,6 +10,7 @@ const courseListRouter = require('./routers/courseListRouter')();
 const reviewRouter = require('./routers/reviewRouter')();
 const adminRouter = require('./routers/adminRouter')();
 const authRouter = require('./routers/authRouter')();
+const userRouter = require('./routers/userRouter')();
 const authMiddleWare = require('./authmiddleware');
 
 const Course = require('./models/Course');
@@ -32,6 +33,7 @@ app.use('/api', [
   reviewRouter,
   adminRouter,
   authRouter,
+  userRouter,
 ]);
 
 Course.count({}, function (err, result) {

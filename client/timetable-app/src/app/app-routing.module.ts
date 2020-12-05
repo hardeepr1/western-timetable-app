@@ -7,6 +7,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { AuthGuard } from './user/auth.guard';
 import { LoginComponent } from './user/login/login.component';
+import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { RegisterComponent } from './user/register/register.component';
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path:'createcourselist/:courseListId', component: CreateCourselistComponent, canActivate: [AuthGuard]},
   {path:'createcourselist', component: CreateCourselistComponent, canActivate: [AuthGuard]},
   {path:'timetable/:courseListId', component: TimetableComponent},
-  {path:'login', component: LoginComponent}
+  {path:'login', component: LoginComponent},
+  {path:'accounts', component: ManageUsersComponent}
 ];
 
 @NgModule({

@@ -15,6 +15,22 @@ function routes() {
     });
   });
 
+  reviewRouter.route('/secure/review').get((req, res) => {
+    let catalog_nbr = req.query.catalog_nbr;
+    let subject = req.query.subject;
+
+    Review.find(
+      { catalog_nbr: catalog_nbr, subject: subject },
+      (err, reviews) => {
+        const returnedReviews = [];
+        reviews.forEach((review) => {
+          returnedReviews.push(review);
+        });
+        return res.json(returnedReviews);
+      }
+    );
+  });
+
   return reviewRouter;
 }
 
