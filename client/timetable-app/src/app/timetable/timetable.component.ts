@@ -16,7 +16,7 @@ constructor(private timetableService: TimetableService, private route: Activated
 
 ngOnInit(): void {
   const courseListId = this.route.snapshot.paramMap.get('courseListId');
- this.timetableService.getTimeTables(courseListId).subscribe(courses => {
+  this.timetableService.getTimeTables(courseListId).subscribe(courses => {
   this.courses = courses;});
 }
 

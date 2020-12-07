@@ -14,14 +14,61 @@ function routes() {
   });
 
   //METHOD TO GET ALL COURSELISTS
-  courseListRouter.route('/secure/courselist').get((req, res) => {
-    CourseList.find({}, (err, courseLists) => {
-      const returnedCourseLists = [];
-      courseLists.forEach((courseList) => {
-        returnedCourseLists.push(courseList);
-      });
-      return res.json(returnedCourseLists);
-    });
+  courseListRouter.route('/secure/courselist').get(async (req, res) => {
+    let courseLists = await CourseList.find({});
+    const returnedCourseLists = [];
+    console.log(courseLists);
+
+    for (const courseList of courseLists) {
+      let courses = courseList.get('coursesList');
+
+      for (const courseRef of courses) {
+        let catalog_nbr = courseRef.catalog_nbr;
+        let subject = courseRef.subject;
+
+        let course = await Course.findOne({
+          catalog_nbr: catalog_nbr,
+          subject: subject,
+        });
+
+        if (course !== null) courseRef.courseDetails = course;
+      }
+
+      returnedCourseLists.push(courseList);
+    }
+
+    return res.send(returnedCourseLists);
+    // CourseList.find({}, (err, courseLists) => {
+    //   console.log(courseLists);
+
+    //   const returnedCourseLists = [];
+    //   courseLists.forEach((courseList) => {
+    //     let courses = courseList.get('coursesList');
+
+    //     console.log('Here before courses');
+    //     console.log(courses);
+
+    //     //why does not work for foreach strange
+    //     for (const courseRef of courses) {
+    //       let catalog_nbr = courseRef.catalog_nbr;
+    //       let subject = courseRef.subject;
+
+    //       console.log(catalog_nbr);
+    //       console.log(subject);
+
+    //       Course.findOne(
+    //         {
+    //           catalog_nbr: catalog_nbr,
+    //           subject: subject,
+    //         },
+    //         (err, course) => {
+    //           if (course !== null) courseRef.courseDetails = course;
+    //           returnedCourseLists.push(courseList);
+    //         }
+    //       );
+    //     }
+    //   });
+    //   return res.json(returnedCourseLists);
   });
 
   //CREATES A NEW COURSELIST
@@ -68,6 +115,8 @@ function routes() {
         let courseListId = req.params.courseListId;
         let courseList = await CourseList.findOne({ _id: courseListId });
         let courses = courseList.get('coursesList');
+
+        console.log(courses);
 
         //why does not work for foreach strange
         for (const courseRef of courses) {

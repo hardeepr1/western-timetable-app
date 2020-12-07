@@ -19,7 +19,8 @@ export class CreateCourselistComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private courseListService: CourseListService, private route: ActivatedRoute) {     
     this.courseListForm = this.formBuilder.group({
     name: ['',[Validators.required]],
-    description:['']})
+    description:[''],
+    public: [false]})
   }
 
   ngOnInit(): void {
@@ -38,12 +39,15 @@ export class CreateCourselistComponent implements OnInit {
     
   }
 
+  //TODO :USERNAME SHOULD NOT BE HARDCODED
   //METHOD TO CREATE A COURSELIST
   createCourseList(): void{
     const courseList = {
       name: this.courseListForm.value.name,
       description: this.courseListForm.value.description,
-      coursesList: this.selectedCourses
+      coursesList: this.selectedCourses,
+      public: this.courseListForm.value.public,
+      userName: 'hardeepr1'
     }
     this.courseListService.createCourseList(courseList).subscribe(res => alert("Course List Creation success"));
   }

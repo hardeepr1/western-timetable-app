@@ -22,9 +22,9 @@ function routes() {
     return res.json(courses);
   });
 
-  courseRouter.route('/open/course').get((req, res) => {
+  courseRouter.route('/open/courseid').get((req, res) => {
     let result = [];
-    //subject, catalog_nbr, className , class_section, ssr_component
+
     let catalog_nbr = req.query.catalog_nbr;
     let subject = req.query.subject;
 
