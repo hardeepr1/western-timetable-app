@@ -9,6 +9,7 @@ const model = new Schema({
   password: String,
   deactivated: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
 });
 
 model.methods.generateJWTToken = function () {

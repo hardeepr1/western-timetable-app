@@ -8,7 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatSelectModule} from '@angular/material/select';
 
 const MaterialComponents =[
     MatButtonModule,
@@ -18,7 +18,8 @@ const MaterialComponents =[
     MatInputModule,
     MatTabsModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule
 ]
 @NgModule({
     imports:[MaterialComponents],

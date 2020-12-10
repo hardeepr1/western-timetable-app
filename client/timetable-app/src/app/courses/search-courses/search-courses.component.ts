@@ -32,8 +32,12 @@ export class SearchCoursesComponent implements OnInit {
   }
 
   searchByCourseId(): void{
-    this.courseService.searchByCourseId(this.subject, this.courseNumber).subscribe(results => this.searchByIdResults = results);
-  }
+    this.courseService.searchByCourseId(this.subject, this.courseNumber).subscribe(results => 
+      {
+        this.searchByIdResults = results;
+        console.log(this.searchByIdResults);
+      });
+}
 
   searchByKeyWord(): void{
     this.courseService.searchCoursesByKeyword(this.keyword).subscribe(results => this.searchByKeywordResult = results);

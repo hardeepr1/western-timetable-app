@@ -60,11 +60,26 @@
       <td mat-cell *matCellDef="let element">
         <mat-checkbox
           #courseselect
-          [attr.subject]="element.subject"
-          [attr.catalog_nbr]="element.catalog_nbr"
           class="example-margin"
-          (click)="checkBoxClickHandler($event)"
+          (click)="checkBoxClickHandler($event, element)"
           >Select</mat-checkbox
+        >
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef>Year</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field appearance="fill"
+          ><mat-label>Year</mat-label>
+          <mat-select>
+            <mat-option value="1">Year 1</mat-option>
+            <mat-option value="2">Year 2</mat-option>
+            <mat-option value="3">Year 3</mat-option>
+            <mat-option value="4">Year 4</mat-option>
+            <mat-option value="5">Year 5</mat-option>
+            <mat-option value="6">Year 6</mat-option>
+          </mat-select></mat-form-field
         >
       </td>
     </ng-container>

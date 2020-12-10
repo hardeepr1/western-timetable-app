@@ -17,7 +17,6 @@ function routes() {
   courseListRouter.route('/secure/courselist').get(async (req, res) => {
     let courseLists = await CourseList.find({});
     const returnedCourseLists = [];
-    console.log(courseLists);
 
     for (const courseList of courseLists) {
       let courses = courseList.get('coursesList');
@@ -111,29 +110,38 @@ function routes() {
     .route('/open/timetable/:courseListId')
     .get(async (req, res) => {
       try {
-        let returnedCourseLists = [];
+        let returnedCourseLists = {};
         let courseListId = req.params.courseListId;
         let courseList = await CourseList.findOne({ _id: courseListId });
         let courses = courseList.get('coursesList');
 
-        console.log(courses);
-
-        //why does not work for foreach strange
         for (const courseRef of courses) {
-          let catalog_nbr = courseRef.catalog_nbr;
+          let catalog_nbr = courseRef.catalog_nbr.toString();
           let subject = courseRef.subject;
+          let group = 'FULL';
+
+          if (catalog_nbr.length > 4) {
+            group = catalog_nbr.charAt(catalog_nbr.length - 1);
+          }
+
+          if (catalog_nbr.length === 4) catalog_nbr = parseInt(catalog_nbr);
 
           let course = await Course.findOne({
             catalog_nbr: catalog_nbr,
             subject: subject,
           });
 
-          if (course !== null) returnedCourseLists.push(course);
+          if (!(group in returnedCourseLists)) {
+            returnedCourseLists[group] = [];
+          }
+
+          if (course !== null) returnedCourseLists[group].push(course);
         }
-        return res.send(returnedCourseLists);
+
+        return res.json(returnedCourseLists);
       } catch (err) {}
     });
-
+  
   //DELETE AN EXISTING COURSELIST
   //TODO: PARAMETER CAN BE ID
   courseListRouter

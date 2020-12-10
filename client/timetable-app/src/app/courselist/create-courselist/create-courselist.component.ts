@@ -11,7 +11,7 @@ import { CourseListService } from '../courselist.service';
 export class CreateCourselistComponent implements OnInit {
   courseListForm: FormGroup;
   coursesList: any[];
-  displayedColumns = ['catalog_nbr','subject', 'selectedcheckbox'];
+  displayedColumns = ['catalog_nbr','subject', 'selectedcheckbox','year'];
   selectedCourses: any[] = [];
   editCourseList: boolean = false;
   @ViewChild('courseselect') courseselect;
@@ -63,13 +63,14 @@ export class CreateCourselistComponent implements OnInit {
     this.courseListService.updateCourseList(courseListId, updatedCourseList).subscribe(res => alert("Update course list is successfull"));
   }
 
-  checkBoxClickHandler(event: any): void{
-    const subject = event.currentTarget.getAttribute('subject');
-    const catalog_nbr = event.currentTarget.getAttribute('catalog_nbr');
-    this.selectedCourses.push({
-      subject: subject,
-      catalog_nbr: catalog_nbr,
-    });
+  checkBoxClickHandler(event: any, element: any): void{
+    console.log(element);
+    // const subject = event.currentTarget.getAttribute('subject');
+    // const catalog_nbr = event.currentTarget.getAttribute('catalog_nbr');
+    // this.selectedCourses.push({
+    //   subject: subject,
+    //   catalog_nbr: catalog_nbr,
+    // });
   }
 
 }

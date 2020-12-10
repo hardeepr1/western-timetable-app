@@ -9,7 +9,8 @@ import {AuthService} from '../auth.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-
+  userRegistered: Boolean = false;
+  craftedEmail: any;
   constructor(private formBuilder :FormBuilder,private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -29,9 +30,9 @@ export class RegisterComponent implements OnInit {
       }
 
       console.log(user);
-      //to do error handling
-      this.authService.register(user).subscribe({
-        next:(res) => console.log(res)
+      this.authService.register(user).subscribe(response => {
+        this.userRegistered = true;
+        this.craftedEmail = response.craftedEmail
       });
       
     }

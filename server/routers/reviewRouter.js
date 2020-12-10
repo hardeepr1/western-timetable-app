@@ -8,6 +8,7 @@ function routes() {
   //ADD A REVIEW FOR COURSE ID(subject and catalog_nbr)
   reviewRouter.route('/secure/review').post((req, res) => {
     const review = new Review(req.body);
+    review.userName = 'hardeepr1';
     review.save((err) => {
       if (!err) {
         res.send(review);
