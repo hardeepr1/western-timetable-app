@@ -27,7 +27,7 @@
       (click)="updateCourseList()"
       color="primary"
     >
-      UPDARTE COURSELIST
+      UPDATE COURSELIST
     </button>
     <button
       *ngIf="!editCourseList"
@@ -40,9 +40,6 @@
   </mat-card-actions>
 
   <table mat-table [dataSource]="coursesList" class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
     <!-- Catalog Number Column -->
     <ng-container matColumnDef="catalog_nbr">
       <th mat-header-cell *matHeaderCellDef>Catalog Number</th>
@@ -61,7 +58,7 @@
         <mat-checkbox
           #courseselect
           class="example-margin"
-          (click)="checkBoxClickHandler($event, element)"
+          [(ngModel)]="element.selected"
           >Select</mat-checkbox
         >
       </td>
@@ -72,7 +69,7 @@
       <td mat-cell *matCellDef="let element">
         <mat-form-field appearance="fill"
           ><mat-label>Year</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="element.year">
             <mat-option value="1">Year 1</mat-option>
             <mat-option value="2">Year 2</mat-option>
             <mat-option value="3">Year 3</mat-option>

@@ -42,10 +42,11 @@ export class CreateCourselistComponent implements OnInit {
   //TODO :USERNAME SHOULD NOT BE HARDCODED
   //METHOD TO CREATE A COURSELIST
   createCourseList(): void{
+    let selectedCourses = this.getSelectedCourse();
     const courseList = {
       name: this.courseListForm.value.name,
       description: this.courseListForm.value.description,
-      coursesList: this.selectedCourses,
+      coursesList: selectedCourses,
       public: this.courseListForm.value.public,
       userName: 'hardeepr1'
     }
@@ -63,14 +64,8 @@ export class CreateCourselistComponent implements OnInit {
     this.courseListService.updateCourseList(courseListId, updatedCourseList).subscribe(res => alert("Update course list is successfull"));
   }
 
-  checkBoxClickHandler(event: any, element: any): void{
-    console.log(element);
-    // const subject = event.currentTarget.getAttribute('subject');
-    // const catalog_nbr = event.currentTarget.getAttribute('catalog_nbr');
-    // this.selectedCourses.push({
-    //   subject: subject,
-    //   catalog_nbr: catalog_nbr,
-    // });
+  getSelectedCourse(): any{
+    return this.coursesList.filter(courseList => courseList.selected)
   }
 
 }

@@ -26,4 +26,12 @@
 </mat-card>
 <div *ngIf="userRegistered">
   <div>{{ craftedEmail.link }}</div>
+  <div>
+    Please click on this <a [href]="craftedEmail.link">link</a> to verify the
+    email for user
+  </div>
+  <div>
+    Copy paste the following link <a>{{ craftedEmail.link }}</a> in the new
+    browser window
+  </div>
 </div>

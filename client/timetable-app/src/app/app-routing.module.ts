@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutComponent } from './about/about/about.component';
 import { CourselistComponent } from './courselist/courselist/courselist.component';
 import { CreateCourselistComponent } from './courselist/create-courselist/create-courselist.component';
 import { CoursesComponent } from './courses/courses/courses.component';
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path:'createcourselist', component: CreateCourselistComponent, canActivate: [AuthGuard]},
   {path:'timetable/:courseListId', component: TimetableComponent},
   {path:'login', component: LoginComponent},
-  {path:'accounts', component: ManageUsersComponent}
+  {path:'accounts', component: ManageUsersComponent},
+  {path:'', component: AboutComponent}
 ];
 
 @NgModule({

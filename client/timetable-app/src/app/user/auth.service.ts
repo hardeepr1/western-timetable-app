@@ -47,7 +47,7 @@ export class AuthService{
     }
 
     userLoggedIn(): boolean{
-        return true;
+        return false;
         // let loggedIn = localStorage.getItem('id_token') !== null;
         // return loggedIn;
     }

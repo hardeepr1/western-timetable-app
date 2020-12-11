@@ -19,6 +19,7 @@ import { TimetableComponent } from './timetable/timetable.component';
 import { CoursesComponent } from './courses/courses/courses.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { ManageUsersComponent } from './user/manage-users/manage-users.component';
+import { AboutComponent } from './about/about/about.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ManageUsersComponent } from './user/manage-users/manage-users.component
     TimetableComponent,
     CoursesComponent,
     ReviewsComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

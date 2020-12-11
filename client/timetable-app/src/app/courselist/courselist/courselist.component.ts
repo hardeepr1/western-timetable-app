@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CourseListService} from '../courselist.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/user/auth.service';
 
 @Component({
   selector: 'app-courselist',
@@ -18,10 +19,11 @@ import { Router } from '@angular/router';
 export class CourselistComponent implements OnInit {
 
   courseLists:any[];
-  columnsToDisplay = ['name', 'userName', 'lastEditedTime']
+  columnsToDisplay = ['name', 'userName', 'lastEditedTime','timetable', 'coursescount']
   allColumnsToDisplay = ['name', 'userName','lastEditedTime' ,'coursescount','delete', 'timetable', 'edit']
+  
 
-  constructor(private courseListService: CourseListService, private router:Router ) { }
+  constructor(private courseListService: CourseListService, private router:Router, private authService: AuthService ) { }
 
   ngOnInit(): void {
     this.courseListService.getCourseLists().subscribe(courseLists => {
@@ -54,6 +56,10 @@ export class CourselistComponent implements OnInit {
     event.stopPropagation();
     const route = '/createcourselist/' + coursesListID;
     this.router.navigate([route]);
+  }
+
+  get isLoggedIn(): boolean {
+    return this.authService.userLoggedIn();
   }
 
 }
