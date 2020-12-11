@@ -40,6 +40,9 @@ export class SearchCoursesComponent implements OnInit {
 }
 
   searchByKeyWord(): void{
-    this.courseService.searchCoursesByKeyword(this.keyword).subscribe(results => this.searchByKeywordResult = results);
+    this.courseService.searchCoursesByKeyword(this.keyword).subscribe(results => {
+      this.searchByKeywordResult = results;
+      console.log(this.searchByKeywordResult);
+    });
   }
 }

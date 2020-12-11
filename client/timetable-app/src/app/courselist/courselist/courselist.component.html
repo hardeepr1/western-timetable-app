@@ -75,7 +75,13 @@
         class="example-element-detail"
         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
       >
-        <div>"ABC"</div>
+        <div>
+          <span>Description : {{ element.description }}</span>
+        </div>
+        <div><h4>CoursesList</h4></div>
+        <div *ngFor="let course of element.coursesList">
+          Catalog Number : {{ course.catalog_nbr }}
+        </div>
       </div>
     </td>
   </ng-container>

@@ -108,8 +108,15 @@
                 class="review-comment"
                 *ngFor="let review of element.reviews"
               >
-                <span>Review Comment: {{ review.review }}</span
-                ><span>Reviewers Name : {{ review.userName }}</span>
+                <div>
+                  <span>Review Comment: {{ review.review }}</span>
+                </div>
+                <div>
+                  <span>Reviewers Name : {{ review.userName }}</span>
+                </div>
+                <div>
+                  <span>Last Edited time : {{ review.reviewTime }}</span>
+                </div>
               </div>
             </div>
           </td>

@@ -27,9 +27,24 @@ export class CourselistComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseListService.getCourseLists().subscribe(courseLists => {
-      this.courseLists = courseLists;
+      if(!this.isLoggedIn){
+        this.courseLists = courseLists.filter(courselist => courselist.public)
+      }else{
+        this.courseLists = courseLists.sort(this.comparator);
+      }
       console.log(courseLists);
     });
+  }
+
+  comparator(courseListA, courseListB): any{
+
+    var lastEditComparisonResult = compareDates(courseListA.lastEditedTime, courseListB.lastEditedTime);
+
+    if(lastEditComparisonResult !== 0){
+        return lastEditComparisonResult;
+    }
+
+    return 0;
   }
 
   deleteCourseList(event, item): void{
@@ -41,8 +56,7 @@ export class CourselistComponent implements OnInit {
       });
     } else {
       console.log('Thing was not saved to the database.');
-    }
-    
+    } 
   }
 
   //here we will write code to move to next view
@@ -62,4 +76,18 @@ export class CourselistComponent implements OnInit {
     return this.authService.userLoggedIn();
   }
 
+}
+
+
+function compareDates(a: Date,b: Date) {
+  
+  if(a < b){
+    return 1;
+  }
+
+  if(a > b){
+    return -1;
+  }
+
+  return 0;
 }

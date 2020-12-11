@@ -20,6 +20,7 @@ import { CoursesComponent } from './courses/courses/courses.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { AboutComponent } from './about/about/about.component';
+import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AboutComponent } from './about/about/about.component';
     CoursesComponent,
     ReviewsComponent,
     ManageUsersComponent,
-    AboutComponent
+    AboutComponent,
+    ManageReviewsComponent
   ],
   imports: [
     BrowserModule,

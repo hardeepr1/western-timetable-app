@@ -10,9 +10,7 @@ export class AuthService{
     username: string = '';
     isAdmin: boolean = false;
 
-    constructor(private http: HttpClient){
-
-    }
+    constructor(private http: HttpClient){}
 
     //todo: error handling
     register(user: any):Observable<any>{
@@ -26,6 +24,11 @@ export class AuthService{
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = `${this.baseUrl}/open/signin`;
         return this.http.post<any>(url, user, {headers:headers});
+    }
+
+    externalLogin(): Observable<any>{
+        const url = `${this.baseUrl}/passport/auth/google`;
+        return this.http.get<any>(url);
     }
 
     getUsers(): Observable<any[]>{

@@ -41,4 +41,7 @@ export class LoginComponent implements OnInit {
     console.log(response);
   }
 
+  onGoogleLogin(): void{
+    this.authService.externalLogin().subscribe((response) => this.onLogin(response));
+  }
 }

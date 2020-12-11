@@ -5,6 +5,7 @@ import { CourselistComponent } from './courselist/courselist/courselist.componen
 import { CreateCourselistComponent } from './courselist/create-courselist/create-courselist.component';
 import { CoursesComponent } from './courses/courses/courses.component';
 import { SearchCoursesComponent } from './courses/search-courses/search-courses.component';
+import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { AuthGuard } from './user/auth.guard';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path:'timetable/:courseListId', component: TimetableComponent},
   {path:'login', component: LoginComponent},
   {path:'accounts', component: ManageUsersComponent},
+  {path:'managereviews', component: ManageReviewsComponent},
   {path:'', component: AboutComponent}
 ];
 

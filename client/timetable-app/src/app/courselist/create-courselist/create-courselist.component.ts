@@ -55,10 +55,11 @@ export class CreateCourselistComponent implements OnInit {
 
   //METHOD TO UPDATE COURSELIST
   updateCourseList(): void{
+    let selectedCourses = this.getSelectedCourse();
     const updatedCourseList = {
       name: this.courseListForm.value.name,
       description: this.courseListForm.value.description,
-      coursesList: this.selectedCourses
+      coursesList: selectedCourses
     }
     const courseListId = this.route.snapshot.paramMap.get('courseListId');
     this.courseListService.updateCourseList(courseListId, updatedCourseList).subscribe(res => alert("Update course list is successfull"));
