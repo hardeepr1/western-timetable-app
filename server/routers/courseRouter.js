@@ -89,6 +89,18 @@ function routes() {
       }
     }
 
+    for (const course of returnedCourses) {
+      let catalog_nbr = course.catalog_nbr;
+      let subject = course.subject;
+
+      let reviews = await Review.find({
+        catalog_nbr: catalog_nbr,
+        subject: subject,
+      });
+
+      if (course !== null) course.reviews = reviews;
+    }
+
     return res.json(returnedCourses);
   });
   return courseRouter;

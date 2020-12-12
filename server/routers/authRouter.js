@@ -31,11 +31,15 @@ function routes() {
       let randomBuffer = await crypto.randomBytes(48);
       let randomToken = randomBuffer.toString('hex');
 
+      console.log('Random token generated');
+      console.log(randomToken);
+
       let verificationTokenModel = new VerificationToken({
         email: saveUser.email,
         verificationToken: randomToken,
       });
 
+      console.log('Saved model');
       console.log(verificationTokenModel);
 
       let saveVerificationTokenModel = await verificationTokenModel.save();
@@ -78,7 +82,7 @@ function routes() {
             'Your account has been deactivated, Please contact administrator to re-activate your account',
         });
       }
-      
+
       let passwordMatches = await argon2.verify(user.password, password);
       if (passwordMatches) {
         const jwtToken = user.generateJWTToken();
@@ -126,13 +130,20 @@ function routes() {
         return res.json({ message: 'No verification token for this email' });
       }
 
+      console.log('database');
+
+      console.log(verificationTokenModel.verificationToken);
+
+      console.log('frontend');
+      console.log(token);
+
       if (verificationTokenModel.verificationToken === token) {
         const updatedUser = await User.findOneAndUpdate(
           { email: email },
           { isVerified: true }
         );
 
-        res.set('location', 'http://' + host + '/login');
+        res.set('location', 'http://' + host + '/emailverified');
         return res.status(301).send();
       } else {
         return res.json({ message: 'Verification token not correct' });

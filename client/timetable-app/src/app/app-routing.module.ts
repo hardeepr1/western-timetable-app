@@ -9,6 +9,7 @@ import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.
 import { ReviewsComponent } from './reviews/reviews.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { AuthGuard } from './user/auth.guard';
+import { EmailVerificationComponent } from './user/email-verification/email-verification.component';
 import { LoginComponent } from './user/login/login.component';
 import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { RegisterComponent } from './user/register/register.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'accounts', component: ManageUsersComponent},
   {path:'managereviews', component: ManageReviewsComponent},
+  {path:'emailverified', component: EmailVerificationComponent},
   {path:'', component: AboutComponent}
 ];
 

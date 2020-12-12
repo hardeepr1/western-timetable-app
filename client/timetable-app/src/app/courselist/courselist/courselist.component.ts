@@ -28,10 +28,12 @@ export class CourselistComponent implements OnInit {
   ngOnInit(): void {
     this.courseListService.getCourseLists().subscribe(courseLists => {
       if(!this.isLoggedIn){
-        this.courseLists = courseLists.filter(courselist => courselist.public)
+        this.courseLists = courseLists.filter(courselist => courselist.public).slice(0, 10);
       }else{
-        this.courseLists = courseLists.sort(this.comparator);
+        //filter with public and created by user
+        this.courseLists = courseLists;
       }
+      this.courseLists.sort(this.comparator);
       console.log(courseLists);
     });
   }

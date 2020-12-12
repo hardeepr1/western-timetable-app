@@ -24,6 +24,8 @@ import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.
 import { InfoDialogComponent } from './common/info-dialog/info-dialog.component';
 import {MatDialog, MatDialogRef,MatDialogModule } from '@angular/material/dialog';
 import { SuccessDialogComponent } from './common/success-dialog/success-dialog.component';
+import { EmailVerificationComponent } from './user/email-verification/email-verification.component';
+import { ValidationDialogComponent } from './common/validation-dialog/validation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { SuccessDialogComponent } from './common/success-dialog/success-dialog.c
     AboutComponent,
     ManageReviewsComponent,
     InfoDialogComponent,
-    SuccessDialogComponent
+    SuccessDialogComponent,
+    EmailVerificationComponent,
+    ValidationDialogComponent
   ],
   imports: [
     BrowserModule,

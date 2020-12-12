@@ -2,6 +2,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import {CourseService} from '../course.service';
+import {MatDialog} from '@angular/material/dialog';
+import {ValidationDialogComponent} from '../../common/validation-dialog/validation-dialog.component';
 
 @Component({
   selector: 'app-search-courses',
@@ -26,7 +28,7 @@ export class SearchCoursesComponent implements OnInit {
 
   columnsToDisplay = ['catalog_nbr', 'subject','className', 'ssr_component', 'class_section', 'start_time', 'end_time','campus', 'days'];
 
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -40,9 +42,15 @@ export class SearchCoursesComponent implements OnInit {
 }
 
   searchByKeyWord(): void{
-    this.courseService.searchCoursesByKeyword(this.keyword).subscribe(results => {
-      this.searchByKeywordResult = results;
-      console.log(this.searchByKeywordResult);
-    });
+    if(this.keyword.length < 4){
+      this.dialog.open(ValidationDialogComponent, {data: {message: "This length of search keyword is less then 4"}});
+      return;
+    }else{
+      this.courseService.searchCoursesByKeyword(this.keyword).subscribe(results => {
+        this.searchByKeywordResult = results;
+        console.log(this.searchByKeywordResult);
+      });
+    }
+    
   }
 }

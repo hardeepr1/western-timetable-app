@@ -236,7 +236,20 @@
                 element == expandedElement ? 'expanded' : 'collapsed'
               "
             >
-              <div>"ABC"</div>
+              <div
+                class="review-comment"
+                *ngFor="let review of element.reviews"
+              >
+                <div>
+                  <span>Review Comment: {{ review.review }}</span>
+                </div>
+                <div>
+                  <span>Reviewers Name : {{ review.userName }}</span>
+                </div>
+                <div>
+                  <span>Last Edited time : {{ review.reviewTime }}</span>
+                </div>
+              </div>
             </div>
           </td>
         </ng-container>
