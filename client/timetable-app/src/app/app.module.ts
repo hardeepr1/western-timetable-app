@@ -21,6 +21,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { ManageUsersComponent } from './user/manage-users/manage-users.component';
 import { AboutComponent } from './about/about/about.component';
 import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.component';
+import { InfoDialogComponent } from './common/info-dialog/info-dialog.component';
+import {MatDialog, MatDialogRef,MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.
     ReviewsComponent,
     ManageUsersComponent,
     AboutComponent,
-    ManageReviewsComponent
+    ManageReviewsComponent,
+    InfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule,
+    MatDialogModule,
+    MaterialModule
 
   ],
   providers: [
@@ -53,6 +57,14 @@ import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.
       useClass: AuthInterceptor,
       multi: true,
     },
+    MatDialog,
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+  ],
+  entryComponents: [
+    InfoDialogComponent
   ],
   bootstrap: [AppComponent]
 })

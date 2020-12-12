@@ -7,14 +7,37 @@
       <mat-form-field class="full-width">
         <mat-label>Username</mat-label>
         <input matInput id="username" type="text" formControlName="username" />
+        <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
+          <small *ngIf="userName.errors?.required" class="text-danger"
+            >User Name is required</small
+          >
+        </div>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
         <input matInput id="Email" type="text" formControlName="email" />
+        <div *ngIf="(email.invalid && email.touched) || email.dirty">
+          <small *ngIf="email.errors?.required" class="text-danger"
+            >Email is required</small
+          >
+          <small *ngIf="email.errors?.pattern" class="text-danger"
+            >Please provide a valid email address</small
+          >
+        </div>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Password</mat-label>
-        <input matInput id="password" type="text" formControlName="password" />
+        <input
+          matInput
+          id="password"
+          type="password"
+          formControlName="password"
+        />
+        <div *ngIf="(password.invalid && password.touched) || password.dirty">
+          <small *ngIf="password.errors?.required" class="text-danger"
+            >Password is required</small
+          >
+        </div>
       </mat-form-field>
     </form>
   </mat-card-content>
@@ -25,7 +48,7 @@
   </mat-card-actions>
 </mat-card>
 <div *ngIf="userRegistered">
-  <div>{{ craftedEmail.link }}</div>
+  <div><h3>User is created successfully</h3></div>
   <div>
     Please click on this <a [href]="craftedEmail.link">link</a> to verify the
     email for user

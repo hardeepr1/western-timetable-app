@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,16 @@ export class AuthService{
     login(user: any): Observable<any>{
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = `${this.baseUrl}/open/signin`;
-        return this.http.post<any>(url, user, {headers:headers});
+        return this.http.post<any>(url, user, {headers:headers}).pipe(catchError(this.handleError))
+    }
+
+    handleError(err: any): Observable<any>{
+        if(err.error.errorMessage){
+          alert(err.error.errorMessage);
+        }  else{
+          alert("A server side error has occured");
+        }
+        return throwError(err);
     }
 
     externalLogin(): Observable<any>{
