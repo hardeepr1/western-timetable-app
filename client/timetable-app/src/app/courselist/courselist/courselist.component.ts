@@ -3,6 +3,8 @@ import {CourseListService} from '../courselist.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/user/auth.service';
+import {MatDialog} from '@angular/material/dialog';
+import {SuccessDialogComponent} from '../../common/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-courselist',
@@ -23,7 +25,7 @@ export class CourselistComponent implements OnInit {
   allColumnsToDisplay = ['name', 'userName','lastEditedTime' ,'coursescount','delete', 'timetable', 'edit']
   
 
-  constructor(private courseListService: CourseListService, private router:Router, private authService: AuthService ) { }
+  constructor(private courseListService: CourseListService, private router:Router, private authService: AuthService, private dialog: MatDialog ) { }
 
   ngOnInit(): void {
     this.courseListService.getCourseLists().subscribe(courseLists => {
@@ -52,9 +54,9 @@ export class CourselistComponent implements OnInit {
   deleteCourseList(event, item): void{
     event.stopPropagation();
     if (confirm('Are you sure you want to delete this courselist  database?')) {
-      this.courseListService.deleteCourseList(item).subscribe(res => {
+      this.courseListService.deleteCourseList(item).subscribe(response => {
         this.courseLists = this.courseLists.filter(courselist => courselist._id !== item);
-        alert("Delete Successfull")
+        this.dialog.open(SuccessDialogComponent, {data: {successMessage: response.successMessage}});
       });
     } else {
       console.log('Thing was not saved to the database.');

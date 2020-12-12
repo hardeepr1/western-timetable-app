@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,11 @@ export class CourseListService {
 
   createCourseList(courseList: any): Observable<any>{
     const url = `${this.baseUrl}/secure/courselist`;
-    return this.http.post<any>(url, courseList, {headers : {'Content-Type' : 'application/json'}});
+    return this.http.post<any>(url, courseList, {headers : {'Content-Type' : 'application/json'}}).pipe(catchError(this.handleError))
+  }
+
+  handleError(err: any): Observable<any>{
+      return throwError(err);
   }
 
   getAllCourses(): Observable<any>{

@@ -51,17 +51,21 @@ export class AuthService{
         this.username = response.username;
         this.isAdmin = response.isAdmin;
         localStorage.setItem('id_token', response.token);
+        localStorage.setItem('user_name', response.username);
+        localStorage.setItem('is_admin', response.isAdmin);
     }
 
     userLoggedIn(): boolean{
-        return true;
-        // let loggedIn = localStorage.getItem('id_token') !== null;
-        // return loggedIn;
+        let loggedIn = localStorage.getItem('id_token') !== null;
+        return loggedIn;
     }
 
     logOut(): void {
         this.username = '';
+        this.isAdmin = false;
         localStorage.removeItem("id_token");
+        localStorage.removeItem("user_name");
+        localStorage.removeItem("is_admin");
     }
 
     getToken():String {
@@ -69,4 +73,13 @@ export class AuthService{
         return token;
     }
     
+    getUserName(): String{
+        let userName = localStorage.getItem('user_name');
+        return userName;
+    }
+
+    getIsAdmin(): boolean{
+        let isAdmin = localStorage.getItem('is_admin');
+        return isAdmin === "true";
+    }
 }

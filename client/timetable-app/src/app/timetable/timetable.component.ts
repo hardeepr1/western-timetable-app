@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {TimetableService} from './timetable.service';
-
+import {getTermMapping} from '../utils/helper';
 
 @Component({
   selector: 'app-timetable',
@@ -10,14 +10,20 @@ import {TimetableService} from './timetable.service';
 })
 export class TimetableComponent implements OnInit {
 courses:any[];
-displayedColumns = ['catalog_nbr','subject','campus', 'class_nbr', 'start_time', 'end_time', 'days'];
+courseListInfo: any;
+displayedColumns = ['catalog_nbr','subject','year','campus', 'class_nbr', 'start_time', 'end_time', 'days'];
+termMapping: any;
 Object = Object;
 
 constructor(private timetableService: TimetableService, private route: ActivatedRoute) { }
 
 ngOnInit(): void {
+  this.termMapping = getTermMapping();
   const courseListId = this.route.snapshot.paramMap.get('courseListId');
   this.timetableService.getTimeTables(courseListId).subscribe(courses => {
+    this.courseListInfo = courses.courseListInfo;
+    delete courses["courseListInfo"]; 
+    
     this.sortCourseDetails(courses);
     this.courses = courses;
   });
@@ -33,9 +39,14 @@ sortCourseDetails(courses): any[]{
 
 compareFunction(courseA, courseB): any{
 
+  var yearComparisonResult = compare(courseA.year, courseB.year);
   var subjectComparisonResult = compare(courseA.subject, courseB.subject);
   var courseCodeComparison = compare(courseA.catalog_nbr, courseB.catalog_nbr);
 
+  if(yearComparisonResult !== 0){
+    return yearComparisonResult;
+  }
+  
   if(subjectComparisonResult !== 0){
       return subjectComparisonResult;
   }

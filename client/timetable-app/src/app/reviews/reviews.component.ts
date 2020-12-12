@@ -2,6 +2,7 @@ import { ChangeDetectorRef,ViewChild, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewsService } from './reviews.service';
 import {MatTable} from '@angular/material/table';
+import { AuthService } from '../user/auth.service';
 
 @Component({
   selector: 'app-reviews',
@@ -21,7 +22,7 @@ export class ReviewsComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router, 
     private reviewsService: ReviewsService, 
-    private ref: ChangeDetectorRef ) { 
+    private ref: ChangeDetectorRef, private authService: AuthService ) { 
 
     if (this.router.getCurrentNavigation().extras.state) {
     this.routeState = this.router.getCurrentNavigation().extras.state;
@@ -44,6 +45,7 @@ export class ReviewsComponent implements OnInit {
       subject: this.subject,
       catalog_nbr: this.catalog_nbr,
       review: this.reviewComment,
+      userName : this.authService.getUserName(),
       hidden: false
     }
 

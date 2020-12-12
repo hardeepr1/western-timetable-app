@@ -78,9 +78,12 @@
         <div>
           <span>Description : {{ element.description }}</span>
         </div>
-        <div><h4>CoursesList</h4></div>
+        <div class="details-header">List of courses List</div>
         <div *ngFor="let course of element.coursesList">
-          Catalog Number : {{ course.catalog_nbr }}
+          <span class="detail-span"
+            >Catalog Number : {{ course.catalog_nbr }}</span
+          >
+          <span>Subject : {{ course.subject }}</span>
         </div>
       </div>
     </td>

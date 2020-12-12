@@ -37,53 +37,51 @@ function routes() {
     }
 
     return res.send(returnedCourseLists);
-    // CourseList.find({}, (err, courseLists) => {
-    //   console.log(courseLists);
-
-    //   const returnedCourseLists = [];
-    //   courseLists.forEach((courseList) => {
-    //     let courses = courseList.get('coursesList');
-
-    //     console.log('Here before courses');
-    //     console.log(courses);
-
-    //     //why does not work for foreach strange
-    //     for (const courseRef of courses) {
-    //       let catalog_nbr = courseRef.catalog_nbr;
-    //       let subject = courseRef.subject;
-
-    //       console.log(catalog_nbr);
-    //       console.log(subject);
-
-    //       Course.findOne(
-    //         {
-    //           catalog_nbr: catalog_nbr,
-    //           subject: subject,
-    //         },
-    //         (err, course) => {
-    //           if (course !== null) courseRef.courseDetails = course;
-    //           returnedCourseLists.push(courseList);
-    //         }
-    //       );
-    //     }
-    //   });
-    //   return res.json(returnedCourseLists);
   });
 
   //CREATES A NEW COURSELIST
-  courseListRouter.route('/secure/courselist').post((req, res) => {
-    //for time being assuming everything is coming in the body
-    //just really simple thing is done so far
+  courseListRouter.route('/secure/courselist').post(async (req, res) => {
     const courseList = new CourseList(req.body);
     courseList.set({ lastEditedTime: Date.now() });
+
+    let courseListsCount = await CourseList.count({
+      userName: courseList.userName,
+    });
+
+    console.log(courseListsCount);
+
+    //Validation if courselist count is greater then 20
+    if (courseListsCount >= 20) {
+      return res.status(400).json({
+        errorMessage:
+          'The maximum courselist allowed are 20. Please delete some of the existing course list',
+      });
+    }
+
+    //validation as name of courselist cannot be empty
+    if (courseList.name.length === 0) {
+      return res.status(400).json({
+        errorMessage: 'The name of the courselist cannot be empty',
+      });
+    }
+
+    let courseListExisting = await CourseList.find({ name: courseList.name });
+
+    //validation as name of courselist must be unique
+    if (courseListExisting) {
+      return res.status(400).json({
+        errorMessage: 'The name of the courselist must be unique',
+      });
+    }
+
     console.log(courseList);
-    //for time being it is hard coded
-    courseList.set({ userName: 'hardeepr1' });
     courseList.save((err) => {
       if (err) {
         return res.send(err);
       }
-      return res.send(courseList);
+      return res.json({
+        successMessage: 'Course List has been created successfully',
+      });
     });
   });
 
@@ -93,12 +91,24 @@ function routes() {
       let id = req.params.id;
       let update = req.body;
       update.lastEditedTime = Date.now();
+
+      // let courseListExisting = await CourseList.find({ name: update.name });
+
+      // //validation as name of courselist must be unique
+      // if (courseListExisting) {
+      //   return res.status(400).json({
+      //     errorMessage: 'The name of the courselist must be unique',
+      //   });
+      // }
+
       let updatedCourseList = await CourseList.findOneAndUpdate(
         { _id: id },
         update,
         { new: true }
       );
-      res.send(updatedCourseList);
+      return res.json({
+        successMessage: 'Course List has been updated successfully',
+      });
     } catch (err) {
       console.log(err);
       res.send(err);
@@ -115,10 +125,15 @@ function routes() {
         let courseList = await CourseList.findOne({ _id: courseListId });
         let courses = courseList.get('coursesList');
 
+        //we need courseListInfo also
+        returnedCourseLists['courseListInfo'] = courseList;
+
         for (const courseRef of courses) {
           let catalog_nbr = courseRef.catalog_nbr.toString();
           let subject = courseRef.subject;
           let group = 'FULL';
+
+          console.log(courseRef);
 
           if (catalog_nbr.length > 4) {
             group = catalog_nbr.charAt(catalog_nbr.length - 1);
@@ -131,26 +146,36 @@ function routes() {
             subject: subject,
           });
 
+          let plainObjectCourse = course.toObject();
+
+          if (courseRef.year) {
+            plainObjectCourse.year = courseRef.year;
+          } else {
+            plainObjectCourse.year = '0';
+          }
+
           if (!(group in returnedCourseLists)) {
             returnedCourseLists[group] = [];
           }
 
-          if (course !== null) returnedCourseLists[group].push(course);
+          if (course !== null)
+            returnedCourseLists[group].push(plainObjectCourse);
         }
 
         return res.json(returnedCourseLists);
       } catch (err) {}
     });
-  
+
   //DELETE AN EXISTING COURSELIST
-  //TODO: PARAMETER CAN BE ID
   courseListRouter
     .route('/secure/courseList/:courseListId')
     .delete((req, res) => {
       let id = req.params.courseListId;
       CourseList.deleteOne({ _id: id }, (err) => {
         if (!err) {
-          return res.json('Delete successfull');
+          return res.json({
+            successMessage: 'Course List has been deleted successfully',
+          });
         } else {
           return res.json('An error has occured');
         }

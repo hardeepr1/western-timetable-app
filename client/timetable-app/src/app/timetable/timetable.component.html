@@ -1,5 +1,27 @@
+<div class="courselist-info" *ngIf="courseListInfo">
+  <mat-card class="courselist-card">
+    <mat-card-header>
+      <mat-card-title>Course List Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="info-content">
+      <div>
+        <span class="info-title">Name :</span>
+        <span>{{ courseListInfo.name }}</span>
+      </div>
+      <div>
+        <span class="info-title">Description :</span>
+        <span>{{ courseListInfo.description }}</span>
+      </div>
+      <div>
+        <span class="info-title">Creator's name :</span>
+        <span> {{ courseListInfo.userName }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
 <div *ngIf="courses">
   <div *ngFor="let key of Object.keys(courses)">
+    <div class="term-title"><span>Term : </span>{{ termMapping[key] }}</div>
     <table mat-table [dataSource]="courses[key]" class="mat-elevation-z8">
       <ng-container matColumnDef="catalog_nbr">
         <th mat-header-cell *matHeaderCellDef>Course Number</th>
@@ -14,6 +36,14 @@
 
         <td mat-cell *matCellDef="let element">
           {{ element.subject }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="year">
+        <th mat-header-cell *matHeaderCellDef>Year</th>
+
+        <td mat-cell *matCellDef="let element">
+          {{ element.year === "0" ? "-" : element.year }}
         </td>
       </ng-container>
 

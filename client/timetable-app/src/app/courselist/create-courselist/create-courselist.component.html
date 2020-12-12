@@ -7,6 +7,11 @@
       <mat-form-field class="full-width">
         <mat-label>Name</mat-label>
         <input matInput id="name" type="text" formControlName="name" />
+        <div *ngIf="(name.invalid && name.touched) || name.dirty">
+          <small *ngIf="name.errors?.required" class="text-danger"
+            >Name is required</small
+          >
+        </div>
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-label>Description</mat-label>

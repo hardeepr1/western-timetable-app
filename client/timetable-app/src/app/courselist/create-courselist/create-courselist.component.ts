@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CourseListService } from '../courselist.service';
 
+import {MatDialog} from '@angular/material/dialog';
+import {SuccessDialogComponent} from '../../common/success-dialog/success-dialog.component';
+import {InfoDialogComponent} from '../../common/info-dialog/info-dialog.component';
+
+import { AuthService } from 'src/app/user/auth.service';
+
 @Component({
   selector: 'app-create-courselist',
   templateUrl: './create-courselist.component.html',
@@ -16,7 +22,7 @@ export class CreateCourselistComponent implements OnInit {
   editCourseList: boolean = false;
   @ViewChild('courseselect') courseselect;
 
-  constructor(private formBuilder: FormBuilder, private courseListService: CourseListService, private route: ActivatedRoute) {     
+  constructor(private formBuilder: FormBuilder, private courseListService: CourseListService, private route: ActivatedRoute, private dialog: MatDialog, private authService: AuthService) {     
     this.courseListForm = this.formBuilder.group({
     name: ['',[Validators.required]],
     description:[''],
@@ -26,6 +32,9 @@ export class CreateCourselistComponent implements OnInit {
   ngOnInit(): void {
     this.courseListService.getAllCourses().subscribe(coursesList =>{ 
       this.coursesList = coursesList;
+      if(this.coursesList && this.selectedCourses){
+        this.setSelectedValues(this.selectedCourses);
+      }
     });
 
     const courseListId = this.route.snapshot.paramMap.get('courseListId');
@@ -34,12 +43,23 @@ export class CreateCourselistComponent implements OnInit {
       this.courseListService.getCourseList(courseListId).subscribe(courseList =>{
         this.courseListForm.controls['name'].setValue(courseList.name);
         this.courseListForm.controls['description'].setValue(courseList.description);
+        this.selectedCourses = courseList.coursesList;
+        if(this.coursesList && this.selectedCourses){
+          this.setSelectedValues(this.selectedCourses);
+        }
+        
       })
     }
     
   }
 
-  //TODO :USERNAME SHOULD NOT BE HARDCODED
+  setSelectedValues(selectedCourses): void{
+    selectedCourses.forEach(courseInfo => {
+      let foundCourse = this.coursesList.find(course => course.subject === courseInfo.subject && course.catalog_nbr === courseInfo.catalog_nbr);
+      foundCourse.selected = courseInfo.selected;
+      foundCourse.year = courseInfo.year;
+    });
+  }
   //METHOD TO CREATE A COURSELIST
   createCourseList(): void{
     let selectedCourses = this.getSelectedCourse();
@@ -48,9 +68,10 @@ export class CreateCourselistComponent implements OnInit {
       description: this.courseListForm.value.description,
       coursesList: selectedCourses,
       public: this.courseListForm.value.public,
-      userName: 'hardeepr1'
+      userName: this.authService.getUserName()
     }
-    this.courseListService.createCourseList(courseList).subscribe(res => alert("Course List Creation success"));
+    this.courseListService.createCourseList(courseList).subscribe(response =>  this.dialog.open(SuccessDialogComponent, {data: {successMessage: response.successMessage}}), 
+    err => { this.dialog.open(InfoDialogComponent, {data: {errorMessage: err.error.errorMessage}});});
   }
 
   //METHOD TO UPDATE COURSELIST
@@ -62,11 +83,16 @@ export class CreateCourselistComponent implements OnInit {
       coursesList: selectedCourses
     }
     const courseListId = this.route.snapshot.paramMap.get('courseListId');
-    this.courseListService.updateCourseList(courseListId, updatedCourseList).subscribe(res => alert("Update course list is successfull"));
+    this.courseListService.updateCourseList(courseListId, updatedCourseList).subscribe(response => this.dialog.open(SuccessDialogComponent, {data: {successMessage: response.successMessage}}));
   }
 
   getSelectedCourse(): any{
     return this.coursesList.filter(courseList => courseList.selected)
   }
+
+  get name(){
+    return this.courseListForm.get('name');
+  }
+
 
 }

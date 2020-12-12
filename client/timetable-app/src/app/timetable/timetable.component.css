@@ -1,3 +1,27 @@
 table {
-  width: 100%;
+  width: 90%;
+  margin: auto;
+}
+
+.courselist-card {
+  width: 90%;
+  margin: 32px auto;
+}
+
+.info-title {
+  font-size: small;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.info-content {
+  margin-left: 16px;
+}
+
+.term-title {
+  width: 90%;
+  margin: 0 auto;
+  font-size: medium;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
