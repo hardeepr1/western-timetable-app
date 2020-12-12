@@ -7,6 +7,7 @@ const model = new Schema({
   review: String,
   hidden: Boolean,
   userName: String,
+  reviewTime: { type: Date },
 });
 
 module.exports = mongoose.model('Review', model);

@@ -11,6 +11,8 @@ const reviewRouter = require('./routers/reviewRouter')();
 const adminRouter = require('./routers/adminRouter')();
 const authRouter = require('./routers/authRouter')();
 const userRouter = require('./routers/userRouter')();
+const passportRouter = require('./routers/passportRouter')();
+
 const authMiddleWare = require('./authmiddleware');
 
 const Course = require('./models/Course');
@@ -26,6 +28,8 @@ const app = express();
 app.use(bodyParser.json());
 
 //app.use('/api/secure', authMiddleWare.checkAuthentication);
+
+// app.use('/', passportRouter);
 
 app.use('/api', [
   courseRouter,
