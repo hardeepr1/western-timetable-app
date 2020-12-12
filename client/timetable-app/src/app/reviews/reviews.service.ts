@@ -19,7 +19,11 @@ export class ReviewsService {
     return this.http.get<any[]>(url);
   }
 
-
+  updateReviews(reviews): Observable<any>{
+    const url = `${this.baseUrl}/secure/reviews`;
+    return this.http.post<any>(url, reviews);
+  }
+  
   getReviews(subject, catalog_nbr): Observable<any>{
     let params = new HttpParams();
     params = params.append('subject', subject);

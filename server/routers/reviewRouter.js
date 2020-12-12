@@ -39,6 +39,24 @@ function routes() {
     return res.json(reviews);
   });
 
+  reviewRouter.route('/secure/reviews').post(async (req, res) => {
+    try {
+      const reviews = req.body;
+      reviews.forEach(async (review) => {
+        const id = review._id;
+        const udpated = { hidden: review.hidden };
+        const updatedReview = await Review.findByIdAndUpdate(id, udpated);
+      });
+      return res.json({
+        successMessage: 'Reviews are updated successfully',
+      });
+    } catch (err) {
+      return res.status(400).json({
+        errorMessage: 'An unexpected error on server side',
+      });
+    }
+  });
+
   return reviewRouter;
 }
 

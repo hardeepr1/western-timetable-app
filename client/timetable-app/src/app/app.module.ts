@@ -23,6 +23,7 @@ import { AboutComponent } from './about/about/about.component';
 import { ManageReviewsComponent } from './reviews/manage-reviews/manage-reviews.component';
 import { InfoDialogComponent } from './common/info-dialog/info-dialog.component';
 import {MatDialog, MatDialogRef,MatDialogModule } from '@angular/material/dialog';
+import { SuccessDialogComponent } from './common/success-dialog/success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatDialog, MatDialogRef,MatDialogModule } from '@angular/material/dialog
     ManageUsersComponent,
     AboutComponent,
     ManageReviewsComponent,
-    InfoDialogComponent
+    InfoDialogComponent,
+    SuccessDialogComponent
   ],
   imports: [
     BrowserModule,

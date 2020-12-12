@@ -72,6 +72,13 @@ function routes() {
         });
       }
 
+      if (user.deactivated === true) {
+        return res.status(400).json({
+          errorMessage:
+            'Your account has been deactivated, Please contact administrator to re-activate your account',
+        });
+      }
+      
       let passwordMatches = await argon2.verify(user.password, password);
       if (passwordMatches) {
         const jwtToken = user.generateJWTToken();

@@ -17,13 +17,24 @@ function routes() {
 
   //Update specific field only
   userRouter.route('/secure/users').put(async (req, res) => {
-    const users = req.body;
-    users.forEach(async (user) => {
-      const id = user._id;
-      const udpated = { isAdmin: user.isAdmin, deactivated: user.deactivated };
-      const updatedUser = await User.findByIdAndUpdate(id, udpated);
-    });
-    return res.json('Users are updated');
+    try {
+      const users = req.body;
+      users.forEach(async (user) => {
+        const id = user._id;
+        const udpated = {
+          isAdmin: user.isAdmin,
+          deactivated: user.deactivated,
+        };
+        const updatedUser = await User.findByIdAndUpdate(id, udpated);
+      });
+      return res.json({
+        successMessage: 'Users are updated successfully',
+      });
+    } catch (err) {
+      return res.status(400).json({
+        errorMessage: 'An unexpected error on server side',
+      });
+    }
   });
   return userRouter;
 }

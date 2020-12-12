@@ -28,11 +28,6 @@ export class AuthService{
     }
 
     handleError(err: any): Observable<any>{
-        if(err.error.errorMessage){
-          alert(err.error.errorMessage);
-        }  else{
-          alert("A server side error has occured");
-        }
         return throwError(err);
     }
 
@@ -45,11 +40,10 @@ export class AuthService{
         const url = `${this.baseUrl}/secure/users`;
         return this.http.get<any[]>(url);
     }
-
-
-    updateUsers(users): Observable<any[]>{
+    
+    updateUsers(users): Observable<any>{
         const url = `${this.baseUrl}/secure/users`;
-        return this.http.put<any[]>(url, users);
+        return this.http.put<any>(url, users);
     }
 
     //response will contain username, isAdmin and id_token
