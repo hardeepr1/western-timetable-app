@@ -8,7 +8,6 @@ function routes() {
   //ADD A REVIEW FOR COURSE ID(subject and catalog_nbr)
   reviewRouter.route('/secure/review').post((req, res) => {
     const review = new Review(req.body);
-    review.userName = 'hardeepr1';
     review.set({ reviewTime: Date.now() });
 
     review.save((err) => {
@@ -35,7 +34,7 @@ function routes() {
   });
 
   reviewRouter.route('/secure/reviews').get(async (req, res) => {
-    let reviews = await Review.find({ hidden: false });
+    let reviews = await Review.find({});
     return res.json(reviews);
   });
 

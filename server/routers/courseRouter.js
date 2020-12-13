@@ -51,6 +51,7 @@ function routes() {
       let reviews = await Review.find({
         catalog_nbr: catalog_nbr,
         subject: subject,
+        hidden: false,
       });
 
       if (plainCourseObejct !== null) plainCourseObejct.reviews = reviews;
@@ -98,6 +99,7 @@ function routes() {
       let reviews = await Review.find({
         catalog_nbr: catalog_nbr,
         subject: subject,
+        hidden: false,
       });
 
       if (course !== null) course.reviews = reviews;
