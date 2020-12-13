@@ -31,7 +31,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/api/secure', authMiddleWare.checkAuthentication);
 
-// app.use('/', passportRouter);
+app.use('/', express.static('../client/timetable-app/dist/timetable-app'));
 
 app.use('/api', [
   courseRouter,
