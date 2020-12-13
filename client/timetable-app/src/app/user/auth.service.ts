@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {URLS} from '../utils/helper';
 
 @Injectable({
     providedIn: 'root'
@@ -16,14 +17,14 @@ export class AuthService{
     //todo: error handling
     register(user: any):Observable<any>{
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const url = `${this.baseUrl}/open/signup`;
+        const url = URLS.USER_REGISTER;
         return this.http.post<any>(url, user, {headers:headers});
     }
 
     //todo: error handling
     login(user: any): Observable<any>{
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const url = `${this.baseUrl}/open/signin`;
+        const url = URLS.USER_LOGIN;
         return this.http.post<any>(url, user, {headers:headers}).pipe(catchError(this.handleError))
     }
 
@@ -32,17 +33,17 @@ export class AuthService{
     }
 
     externalLogin(): Observable<any>{
-        const url = `${this.baseUrl}/passport/auth/google`;
+        const url = URLS.PASSPORT_AUTH
         return this.http.get<any>(url);
     }
 
     getUsers(): Observable<any[]>{
-        const url = `${this.baseUrl}/secure/users`;
+        const url = URLS.ALL_USERS
         return this.http.get<any[]>(url);
     }
     
     updateUsers(users): Observable<any>{
-        const url = `${this.baseUrl}/secure/users`;
+        const url = URLS.ALL_USERS
         return this.http.put<any>(url, users);
     }
 

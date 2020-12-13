@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {URLS} from '../utils/helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  baseUrl = "/api";
 
   constructor(private http: HttpClient) { }
 
@@ -14,7 +14,7 @@ export class CourseService {
     let params = new HttpParams();
     params = params.append('subject', subject);
     params = params.append('catalog_nbr', catalog_nbr);
-    const url = `${this.baseUrl}/open/courseid`;
+    const url = URLS.SEARCH_BY_COURSEID;
     return this.http.get<any[]>(url, {params: params});
   }
 
@@ -22,12 +22,12 @@ export class CourseService {
   searchCoursesByKeyword(keyword:string):Observable<any[]>{
     let params = new HttpParams();
     params = params.append('search_keyword', keyword);
-    const url = `${this.baseUrl}/open/searchcourse`;
+    const url = URLS.SEARCH_BY_KEYWORD;
     return this.http.get<any[]>(url, {params: params})
   }
 
   getAllCourses():Observable<any[]>{
-    const url = `${this.baseUrl}/open/courses`;
+    const url = URLS.ALL_COURSES;
     return this.http.get<any[]>(url);
   }
 }

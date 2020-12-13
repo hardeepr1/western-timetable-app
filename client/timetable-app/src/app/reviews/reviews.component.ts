@@ -4,6 +4,8 @@ import { ReviewsService } from './reviews.service';
 import {MatTable} from '@angular/material/table';
 import { AuthService } from '../user/auth.service';
 import {SuccessDialogComponent} from '../common/success-dialog/success-dialog.component';
+import {ValidationDialogComponent} from '../common/validation-dialog/validation-dialog.component';
+
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
@@ -38,12 +40,15 @@ export class ReviewsComponent implements OnInit {
   ngOnInit(): void {
     this.reviewsService.getReviews(this.subject, this.catalog_nbr).subscribe(reviews => {
       this.reviews = reviews;
-      this.dialog.open(SuccessDialogComponent, {data: {successMessage: "Review has been added successfully"}});
       console.log(this.reviews)
     });
   }
 
   addReview(event): void{
+    if(this.reviewComment.length === 0){
+      this.dialog.open(ValidationDialogComponent, {data: {message: "Please add a review comment"}});
+      return;
+    }
     const review = {
       subject: this.subject,
       catalog_nbr: this.catalog_nbr,
@@ -54,6 +59,7 @@ export class ReviewsComponent implements OnInit {
 
     this.reviewsService.addReview(review).subscribe(review =>{ 
       this.reviews.push(review);
+      this.dialog.open(SuccessDialogComponent, {data: {successMessage: "Review has been added successfully"}});
       this.table.renderRows();
     });
 

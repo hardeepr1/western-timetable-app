@@ -44,6 +44,7 @@ export class CreateCourselistComponent implements OnInit {
       this.courseListService.getCourseList(courseListId).subscribe(courseList =>{
         this.courseListForm.controls['name'].setValue(courseList.name);
         this.courseListForm.controls['description'].setValue(courseList.description);
+        this.courseListForm.controls['public'].setValue(courseList.public);
         this.selectedCourses = courseList.coursesList;
         if(this.coursesList && this.selectedCourses){
           this.setSelectedValues(this.selectedCourses);

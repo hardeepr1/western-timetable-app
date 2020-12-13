@@ -1,9 +1,19 @@
-const baseURL = "/api";
+const baseUrl = "/api";
 
 export const URLS = {
-  ADD_REVIEW: `${baseURL}/secure/review`,
-  ALL_REVIEWS: `${baseURL}/secure/reviews`,
-  GET_COURSE_REVIEW: `${baseURL}/secure/review`,
+  ADD_REVIEW: `${baseUrl}/secure/review`,
+  ALL_REVIEWS: `${baseUrl}/secure/reviews`,
+  GET_COURSE_REVIEW: `${baseUrl}/secure/review`,
+  ALL_COURSES: `${baseUrl}/secure/courses`,
+  SEARCH_BY_KEYWORD: `${baseUrl}/open/searchcourse`,
+  SEARCH_BY_COURSEID: `${baseUrl}/open/courseid`,
+  GET_COURSELISTS: `${baseUrl}/open/courselist`,
+  CREATE_COURSELIST: `${baseUrl}/secure/courselist`,
+  GET_TIMETABLE: `${baseUrl}/open/timetable`,
+  USER_REGISTER: `${baseUrl}/open/signup`,
+  USER_LOGIN: `${baseUrl}/open/signin`,
+  PASSPORT_AUTH: `${baseUrl}/passport/auth/google`,
+  ALL_USERS: `${baseUrl}/secure/users`,
 };
 
 export function getTermMapping() {

@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import {URLS} from '../utils/helper';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,19 @@ export class CourseListService {
 
   getCourseLists(): Observable<any>{
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    const url = `${this.baseUrl}/open/courselist`;
+    const url = URLS.GET_COURSELISTS;
     return this.http.get<any>(url);
   }
 
   //METHOD TO GET COURSE LIST BY ID
   getCourseList(courseListID): Observable<any>{
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    const url = `${this.baseUrl}/secure/courselist/${courseListID}`;
+    const url =  URLS.CREATE_COURSELIST + "/" + courseListID;
     return this.http.get<any>(url);
   }
 
   createCourseList(courseList: any): Observable<any>{
-    const url = `${this.baseUrl}/secure/courselist`;
+    const url = URLS.CREATE_COURSELIST;
     return this.http.post<any>(url, courseList, {headers : {'Content-Type' : 'application/json'}}).pipe(catchError(this.handleError))
   }
 
@@ -35,17 +36,17 @@ export class CourseListService {
 
   getAllCourses(): Observable<any>{
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    const url = `${this.baseUrl}/secure/courses`;
+    const url = URLS.ALL_COURSES;
     return this.http.get<any>(url);
   }
 
   updateCourseList(courseListID, updatedCourseList): Observable<any>{
-    const url = `${this.baseUrl}/secure/courselist/${courseListID}`;
+    const url = URLS.CREATE_COURSELIST + "/" + courseListID;
     return this.http.put<any>(url, updatedCourseList, {headers : {'Content-Type' : 'application/json'}});
   }
 
   deleteCourseList(courseListID): Observable<any>{
-    const url = `${this.baseUrl}/secure/courselist/${courseListID}`;
+    const url =  URLS.CREATE_COURSELIST + "/" + courseListID;
     return this.http.delete<any>(url);
   }
 }
