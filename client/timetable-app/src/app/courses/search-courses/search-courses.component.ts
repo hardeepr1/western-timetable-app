@@ -19,9 +19,9 @@ import {ValidationDialogComponent} from '../../common/validation-dialog/validati
 })
 export class SearchCoursesComponent implements OnInit {
 
-  subject:String;
-  courseNumber: String;
-  keyword: string;
+  subject:String = "";
+  courseNumber: String = "";
+  keyword: string = "";
 
   searchByKeywordResult: any[];
   searchByIdResults : any[];
@@ -34,11 +34,19 @@ export class SearchCoursesComponent implements OnInit {
   }
 
   searchByCourseId(): void{
-    this.courseService.searchByCourseId(this.subject, this.courseNumber).subscribe(results => 
-      {
-        this.searchByIdResults = results;
-        console.log(this.searchByIdResults);
-      });
+    if(this.subject.length === 0 || this.courseNumber.length === 0){
+      this.dialog.open(ValidationDialogComponent, {data: {message: "Either course number or subject is empty"}});
+    }else{
+      this.courseService.searchByCourseId(this.subject, this.courseNumber).subscribe(results => 
+        {
+          this.searchByIdResults = results;
+          if(results.length === 0){
+            this.dialog.open(ValidationDialogComponent, {data: {message: "No results were found for the entered values"}});
+          }
+          console.log(this.searchByIdResults);
+        });
+    }
+    
 }
 
   searchByKeyWord(): void{

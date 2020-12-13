@@ -13,7 +13,7 @@ export class CourseListService {
 
   getCourseLists(): Observable<any>{
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    const url = `${this.baseUrl}/secure/courselist`;
+    const url = `${this.baseUrl}/open/courselist`;
     return this.http.get<any>(url);
   }
 

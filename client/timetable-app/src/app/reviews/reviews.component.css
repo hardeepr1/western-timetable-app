@@ -1,0 +1,13 @@
+table {
+  width: 70%;
+  margin: 0 auto;
+}
+
+mat-form-field {
+  width: 200px;
+}
+
+.card-content,
+.actions {
+  margin-left: 16px;
+}

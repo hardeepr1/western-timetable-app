@@ -1,3 +1,11 @@
+const baseURL = "/api";
+
+export const URLS = {
+  ADD_REVIEW: `${baseURL}/secure/review`,
+  ALL_REVIEWS: `${baseURL}/secure/reviews`,
+  GET_COURSE_REVIEW: `${baseURL}/secure/review`,
+};
+
 export function getTermMapping() {
   let termMapping = {
     E: "Essay Full Course",

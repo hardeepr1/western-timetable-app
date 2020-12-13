@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewsService } from './reviews.service';
 import {MatTable} from '@angular/material/table';
 import { AuthService } from '../user/auth.service';
+import {SuccessDialogComponent} from '../common/success-dialog/success-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reviews',
@@ -22,7 +24,7 @@ export class ReviewsComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router, 
     private reviewsService: ReviewsService, 
-    private ref: ChangeDetectorRef, private authService: AuthService ) { 
+    private ref: ChangeDetectorRef, private authService: AuthService, private dialog: MatDialog ) { 
 
     if (this.router.getCurrentNavigation().extras.state) {
     this.routeState = this.router.getCurrentNavigation().extras.state;
@@ -36,6 +38,7 @@ export class ReviewsComponent implements OnInit {
   ngOnInit(): void {
     this.reviewsService.getReviews(this.subject, this.catalog_nbr).subscribe(reviews => {
       this.reviews = reviews;
+      this.dialog.open(SuccessDialogComponent, {data: {successMessage: "Review has been added successfully"}});
       console.log(this.reviews)
     });
   }
@@ -49,7 +52,7 @@ export class ReviewsComponent implements OnInit {
       hidden: false
     }
 
-    this.reviewsService.addReview(review).subscribe(reviews =>{ 
+    this.reviewsService.addReview(review).subscribe(review =>{ 
       this.reviews.push(review);
       this.table.renderRows();
     });

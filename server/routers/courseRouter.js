@@ -66,6 +66,8 @@ function routes() {
     const returnedCourses = [];
 
     let search_keyword = req.query.search_keyword;
+    search_keyword = search_keyword.toUpperCase();
+
     const courses = await Course.find({});
 
     for (const courseRef of courses) {

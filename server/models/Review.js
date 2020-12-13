@@ -5,7 +5,7 @@ const model = new Schema({
   subject: String,
   catalog_nbr: String,
   review: String,
-  hidden: Boolean,
+  hidden: { type: Boolean, default: false },
   userName: String,
   reviewTime: { type: Date },
 });

@@ -24,17 +24,17 @@ ngOnInit(): void {
     this.courseListInfo = courses.courseListInfo;
     delete courses["courseListInfo"]; 
     
-    this.sortCourseDetails(courses);
-    this.courses = courses;
+    this.courses = this.sortCourseDetails(courses);
   });
 }
 
-sortCourseDetails(courses): any[]{
-  for (let key of Object.keys(courses)) {
-    let courseList = courses[key];
-    courses[key] = courseList.sort(this.compareFunction);
+sortCourseDetails(courses): any{
+  let coursesSorted = Object.keys(courses).sort().reduce((r, k) => (r[k] = courses[k], r), {});
+  for (let key of Object.keys(coursesSorted)) {
+    let courseList = coursesSorted[key];
+    coursesSorted[key] = courseList.sort(this.compareFunction);
   }
-  return courses;
+  return coursesSorted;
 }
 
 compareFunction(courseA, courseB): any{

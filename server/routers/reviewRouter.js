@@ -23,7 +23,7 @@ function routes() {
     let subject = req.query.subject;
 
     Review.find(
-      { catalog_nbr: catalog_nbr, subject: subject },
+      { catalog_nbr: catalog_nbr, subject: subject, hidden: false },
       (err, reviews) => {
         const returnedReviews = [];
         reviews.forEach((review) => {
@@ -35,7 +35,7 @@ function routes() {
   });
 
   reviewRouter.route('/secure/reviews').get(async (req, res) => {
-    let reviews = await Review.find({});
+    let reviews = await Review.find({ hidden: false });
     return res.json(reviews);
   });
 

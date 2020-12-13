@@ -32,8 +32,7 @@ export class CourselistComponent implements OnInit {
       if(!this.isLoggedIn){
         this.courseLists = courseLists.filter(courselist => courselist.public).slice(0, 10);
       }else{
-        //filter with public and created by user
-        this.courseLists = courseLists;
+        this.courseLists = courseLists.filter(courselist => courselist.public || courselist.userName === this.authService.getUserName())
       }
       this.courseLists.sort(this.comparator);
       console.log(courseLists);
@@ -78,6 +77,10 @@ export class CourselistComponent implements OnInit {
 
   get isLoggedIn(): boolean {
     return this.authService.userLoggedIn();
+  }
+
+  get userName(): String{
+    return this.authService.getUserName();
   }
 
 }

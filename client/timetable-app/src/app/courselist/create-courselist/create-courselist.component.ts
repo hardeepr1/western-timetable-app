@@ -6,6 +6,7 @@ import { CourseListService } from '../courselist.service';
 import {MatDialog} from '@angular/material/dialog';
 import {SuccessDialogComponent} from '../../common/success-dialog/success-dialog.component';
 import {InfoDialogComponent} from '../../common/info-dialog/info-dialog.component';
+import {ValidationDialogComponent} from '../../common/validation-dialog/validation-dialog.component';
 
 import { AuthService } from 'src/app/user/auth.service';
 
@@ -60,9 +61,14 @@ export class CreateCourselistComponent implements OnInit {
       foundCourse.year = courseInfo.year;
     });
   }
+  
   //METHOD TO CREATE A COURSELIST
   createCourseList(): void{
     let selectedCourses = this.getSelectedCourse();
+    if(selectedCourses.length === 0){
+      this.dialog.open(ValidationDialogComponent, {data: {message: "Please select atleast one course. A course list cannot be empty"}});
+      return;
+    }
     const courseList = {
       name: this.courseListForm.value.name,
       description: this.courseListForm.value.description,
@@ -77,6 +83,10 @@ export class CreateCourselistComponent implements OnInit {
   //METHOD TO UPDATE COURSELIST
   updateCourseList(): void{
     let selectedCourses = this.getSelectedCourse();
+    if(selectedCourses.length === 0){
+      this.dialog.open(ValidationDialogComponent, {data: {message: "Please select atleast one course. A course list cannot be empty"}});
+      return;
+    }
     const updatedCourseList = {
       name: this.courseListForm.value.name,
       description: this.courseListForm.value.description,

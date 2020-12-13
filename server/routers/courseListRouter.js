@@ -14,7 +14,7 @@ function routes() {
   });
 
   //METHOD TO GET ALL COURSELISTS
-  courseListRouter.route('/secure/courselist').get(async (req, res) => {
+  courseListRouter.route('/open/courselist').get(async (req, res) => {
     let courseLists = await CourseList.find({});
     const returnedCourseLists = [];
 
@@ -65,7 +65,11 @@ function routes() {
       });
     }
 
-    let courseListExisting = await CourseList.find({ name: courseList.name });
+    let courseListExisting = await CourseList.findOne({
+      name: courseList.name,
+    });
+
+    console.log(courseListExisting);
 
     //validation as name of courselist must be unique
     if (courseListExisting) {

@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-
 const jwt = require('jsonwebtoken');
+
+const dotenv = require('dotenv');
+dotenv.config();
 
 const courseRouter = require('./routers/courseRouter')();
 const courseListRouter = require('./routers/courseListRouter')();
@@ -17,17 +19,17 @@ const authMiddleWare = require('./authmiddleware');
 
 const Course = require('./models/Course');
 
-const dbUrl = 'mongodb://localhost:27017/timeTableApp';
+const dbUrl = process.env.DATABASE_URL;
 mongoose.connect(dbUrl);
 
-const port = 3000;
+console.log(dbUrl);
+const port = process.env.PORT;
 
 const app = express();
 
 //setup middleware for body parser
 app.use(bodyParser.json());
-
-//app.use('/api/secure', authMiddleWare.checkAuthentication);
+app.use('/api/secure', authMiddleWare.checkAuthentication);
 
 // app.use('/', passportRouter);
 
