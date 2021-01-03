@@ -143,8 +143,7 @@ function routes() {
           { isVerified: true }
         );
 
-        res.set('location', 'http://' + host + '/emailverified');
-        return res.status(301).send();
+        return res.status(301).send({message:"Email is verified successfully"});
       } else {
         return res.json({ message: 'Verification token not correct' });
       }

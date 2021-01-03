@@ -13,15 +13,13 @@ export class AuthService{
     isAdmin: boolean = false;
 
     constructor(private http: HttpClient){}
-
-    //todo: error handling
+    
     register(user: any):Observable<any>{
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = URLS.USER_REGISTER;
         return this.http.post<any>(url, user, {headers:headers});
     }
 
-    //todo: error handling
     login(user: any): Observable<any>{
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = URLS.USER_LOGIN;

@@ -28,8 +28,7 @@ export class LoginComponent implements OnInit {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       }
-
-      //to do error handling
+      
       this.authService.login(user).subscribe((response) => {this.onLogin(response)},
        err => { this.dialog.open(InfoDialogComponent, {data: {errorMessage: err.error.errorMessage}});}); 
 
