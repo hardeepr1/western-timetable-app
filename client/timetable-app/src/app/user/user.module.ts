@@ -1,14 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import{LoginComponent} from '../user/login/login.component';
-import { BrowserModule } from '@angular/platform-browser';
+import {LoginComponent} from '../user/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from '../material/material.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { SharedModule } from '../shared/shared.module';
+
+const childRoutes: Routes = [
+  {path:'register',component: RegisterComponent},
+  {path:'login', component: LoginComponent},
+  {path:'emailverified', component: EmailVerificationComponent},
+  {path:'accounts', component: ManageUsersComponent, canActivate: [AuthGuard]},
+]
 
 @NgModule({
   declarations: [    
@@ -19,9 +27,9 @@ import { EmailVerificationComponent } from './email-verification/email-verificat
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MaterialModule,
+    SharedModule,
+    RouterModule.forChild(childRoutes)
   ]
+  
 })
 export class UserModule { }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+//IMPORT ALL THE REQUIRED MODULES
 import {MatButtonModule} from  '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
